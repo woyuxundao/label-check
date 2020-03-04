@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>550</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>60</y>
+     <width>341</width>
+     <height>461</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <property name="verticalSpacing">
+     <number>20</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>用户名:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="user_ln">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	font: 75 11pt &quot;Arial&quot;;
+}
+QLineEdit:focus ,QLineEdit:hover{
+	border:none;
+	border-bottom:1px solid rgb(170, 255, 255);
+}</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>密码:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="password_ln">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	font: 75 11pt &quot;Arial&quot;;
+}
+QLineEdit:focus ,QLineEdit:hover{
+	border:none;
+	border-bottom:1px solid rgb(170, 255, 255);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>密码确认:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="passwd_re_ln">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	font: 75 11pt &quot;Arial&quot;;
+}
+QLineEdit:focus ,QLineEdit:hover{
+	border:none;
+	border-bottom:1px solid rgb(170, 255, 255);
+}</string>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>部门:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="department_cb">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>品管部</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>组装部</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>金属部</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>塑胶部</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>行政部</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>仓务部</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>职位:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QComboBox" name="job_cb">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>管理员</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>员工</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>邮箱</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QLineEdit" name="result_ln">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:None;
+background-color: transparent;
+color: rgb(0, 0, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="register_btn">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>注册</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QPushButton" name="exit_btn">
+      <property name="styleSheet">
+       <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>退出</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="email_ln">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	font: 75 11pt &quot;Arial&quot;;
+}
+QLineEdit:focus ,QLineEdit:hover{
+	border:none;
+	border-bottom:1px solid rgb(170, 255, 255);
+}</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>register_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>register_info()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>117</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-83</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exit_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>exit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>595</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>register_info()</slot>
+  <slot>exit()</slot>
+ </slots>
+</ui>

@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="bo">
+    <file>resource/ico.png</file>
+  </qresource>
+  <qresource prefix="bg">
+    <file>resource/login.png</file>
+    <file>resource/ad.png</file>
+    <file>resource/rm.png</file>
+  </qresource>
+  <qresource prefix="fg">
+    <file>resource/qrcode-bg.jpg</file>
+  </qresource>
+</RCC>

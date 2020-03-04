@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>条码验证系统</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../img.qrc">
+    <normaloff>:/bo/resource/ico.png</normaloff>:/bo/resource/ico.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,5">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <property name="topMargin">
+        <number>40</number>
+       </property>
+       <property name="bottomMargin">
+        <number>50</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="auto_radio">
+         <property name="styleSheet">
+          <string notr="true">font: 75 12pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string>自动验证</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QRadioButton" name="manpower_radio">
+         <property name="styleSheet">
+          <string notr="true">font: 75 12pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string>人工验证</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string>客户:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="custom_cb">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding-left:10px;
+font: 75 15pt &quot;等线&quot;;
+color: rgb(170, 0, 255);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string>机型:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="module_cb">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding-left:10px;
+font: 75 15pt &quot;等线&quot;;
+color: rgb(170, 0, 255);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string>品名:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="name_cb">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding-left:10px;
+font: 75 15pt &quot;等线&quot;;
+color: rgb(170, 0, 255);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string>料号:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="pn_cb">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding-left:10px;
+font: 75 15pt &quot;等线&quot;;
+color: rgb(170, 0, 255);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="styleSheet">
+          <string notr="true">font: 16pt &quot;思源黑体 CN Regular&quot;;</string>
+         </property>
+         <property name="text">
+          <string>扫描输入条码:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="MyLineEdit" name="input_ln">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>37</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">MyLineEdit {
+	font: 14pt &quot;黑体&quot;;
+	color:rgb(0, 0, 255);
+	padding-left:20px;
+	border:none;
+	border-bottom:1px solid rgb(0, 0, 0) ;
+
+}
+MyLineEdit:hover,MyLineEdit:focus {
+	border-bottom:1px solid rgb(0, 255, 127);
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="styleSheet">
+          <string notr="true">font: 16pt &quot;楷体&quot;;
+color: rgb(75, 0, 225);</string>
+         </property>
+         <property name="text">
+          <string>此次验证结果:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QLineEdit" name="result_txt">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:1px solid gray;
+border-radius:25px;
+background-color: rgba(255, 255, 255, 0);
+font: 14pt &quot;Arial&quot;;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>在此处显示扫描区接受数据的验证结果</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>50</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget_2" native="true">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="styleSheet">
+          <string notr="true">border:1px solid gray;
+</string>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="rowCount">
+          <number>1</number>
+         </property>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>30</number>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>120</number>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderCascadingSectionResizes">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>20</number>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>30</number>
+         </attribute>
+         <row>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>时间</string>
+          </property>
+          <property name="toolTip">
+           <string>扫描的时间</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="background">
+           <color alpha="0">
+            <red>180</red>
+            <green>180</green>
+            <blue>180</blue>
+           </color>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>结果判定</string>
+          </property>
+          <property name="toolTip">
+           <string>验证条码是否符合规则</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="background">
+           <color>
+            <red>180</red>
+            <green>180</green>
+            <blue>180</blue>
+           </color>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>序列号</string>
+          </property>
+          <property name="toolTip">
+           <string>扫描的条码</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="background">
+           <color>
+            <red>180</red>
+            <green>180</green>
+            <blue>180</blue>
+           </color>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>操作员</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="background">
+           <color>
+            <red>180</red>
+            <green>180</green>
+            <blue>180</blue>
+           </color>
+          </property>
+         </column>
+         <item row="0" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="open_file_ac"/>
+    <addaction name="close_file_ac"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="logout_ac"/>
+    <addaction name="exit_ac"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>选项</string>
+    </property>
+    <addaction name="edit_plicy_ac"/>
+    <addaction name="edit_item_ac"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="theme_set_ac"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="ab_qt_ac"/>
+    <addaction name="ab_version_ac"/>
+    <addaction name="ab_author_ac"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="ab_author_ac">
+   <property name="text">
+    <string>关于作者</string>
+   </property>
+  </action>
+  <action name="ab_qt_ac">
+   <property name="text">
+    <string>关于Qt</string>
+   </property>
+  </action>
+  <action name="theme_set_ac">
+   <property name="text">
+    <string>首选项</string>
+   </property>
+  </action>
+  <action name="edit_plicy_ac">
+   <property name="text">
+    <string>编辑规则</string>
+   </property>
+  </action>
+  <action name="edit_item_ac">
+   <property name="text">
+    <string>编辑条目</string>
+   </property>
+  </action>
+  <action name="open_file_ac">
+   <property name="text">
+    <string>打开文件</string>
+   </property>
+  </action>
+  <action name="close_file_ac">
+   <property name="text">
+    <string>关闭文件</string>
+   </property>
+  </action>
+  <action name="exit_ac">
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </action>
+  <action name="ab_version_ac">
+   <property name="text">
+    <string>关于版本</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>注销</string>
+   </property>
+  </action>
+  <action name="logout_ac">
+   <property name="text">
+    <string>注销</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>.tools</header>
+   <slots>
+    <signal>signal_keyboarded()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../img.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>module_cb</sender>
+   <signal>activated(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>module_change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>293</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-22</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>name_cb</sender>
+   <signal>activated(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>name_change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>266</x>
+     <y>235</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-15</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>input_ln</sender>
+   <signal>signal_keyboarded()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>input_scan()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>294</x>
+     <y>365</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-20</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>custom_cb</sender>
+   <signal>activated(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>custom_change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>325</x>
+     <y>153</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-33</x>
+     <y>153</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>auto_radio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>check_model_change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-20</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>check_model_change()</slot>
+  <slot>custom_change()</slot>
+  <slot>module_change()</slot>
+  <slot>name_change()</slot>
+  <slot>pn_change()</slot>
+  <slot>input_scan()</slot>
+ </slots>
+</ui>

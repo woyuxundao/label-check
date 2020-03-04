@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>policy_dialog</class>
+ <widget class="QDialog" name="policy_dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>822</width>
+    <height>618</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>编辑条目</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>800</width>
+       <height>560</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,3,8">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="styleSheet">
+           <string notr="true">font: 75 12pt &quot;Arial&quot;;</string>
+          </property>
+          <property name="text">
+           <string>规则名称:</string>
+          </property>
+          <property name="buddy">
+           <cstring>policy_cb</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="policy_cb">
+          <property name="styleSheet">
+           <string notr="true">font: 11pt &quot;Arial&quot;;
+padding-left:20px;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,3,0,0,8">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 75 12pt &quot;Arial&quot;;</string>
+          </property>
+          <property name="text">
+           <string>机型:</string>
+          </property>
+          <property name="buddy">
+           <cstring>module_cb</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="module_cb">
+          <property name="styleSheet">
+           <string notr="true">font: 11pt &quot;Arial&quot;;
+padding-left:20px;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="module_add_btn">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/bg/resource/ad.png);
+width:30px;
+height:30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="module_rm_btn">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/bg/resource/rm.png);
+width:30px;
+height:30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,3,0,0,8">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="styleSheet">
+           <string notr="true">font: 75 12pt &quot;Arial&quot;;</string>
+          </property>
+          <property name="text">
+           <string>品名:</string>
+          </property>
+          <property name="buddy">
+           <cstring>name_cb</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="name_cb">
+          <property name="styleSheet">
+           <string notr="true">font: 11pt &quot;Arial&quot;;
+padding-left:20px;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="name_add_btn">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/bg/resource/ad.png);
+width:30px;
+height:30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="name_rm_btn">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/bg/resource/rm.png);
+width:30px;
+height:30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,3,0,0,8">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="styleSheet">
+           <string notr="true">font: 75 12pt &quot;Arial&quot;;</string>
+          </property>
+          <property name="text">
+           <string>料号:</string>
+          </property>
+          <property name="buddy">
+           <cstring>pn_cb</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="pn_cb">
+          <property name="styleSheet">
+           <string notr="true">font: 11pt &quot;Arial&quot;;
+padding-left:20px;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pn_add_btn">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/bg/resource/ad.png);
+width:30px;
+height:30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pn_rm_btn">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/bg/resource/rm.png);
+width:30px;
+height:30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectColumns</enum>
+        </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>机型</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>品名</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>料号</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>15</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="apply_btn">
+          <property name="text">
+           <string>应用</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../img.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>240</x>
+     <y>606</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>308</x>
+     <y>606</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>apply_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>apply_items()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>798</x>
+     <y>531</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-19</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>policy_cb</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>change_policy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>237</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-21</x>
+     <y>30</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>module_cb</sender>
+   <signal>activated(QString)</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>change_module()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>160</x>
+     <y>77</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-19</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>name_cb</sender>
+   <signal>activated(QString)</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>change_name()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-16</x>
+     <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>module_add_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>add_module()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>326</x>
+     <y>-74</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>module_rm_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>remove_module()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>367</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>380</x>
+     <y>-17</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>name_add_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>add_name()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>333</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>-56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>name_rm_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>remove_name()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>354</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>856</x>
+     <y>98</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pn_add_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>add_pn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>145</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-46</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pn_rm_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>policy_dialog</receiver>
+   <slot>remove_pn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>153</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>858</x>
+     <y>155</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>apply_items()</slot>
+  <slot>change_policy()</slot>
+  <slot>change_module()</slot>
+  <slot>change_name()</slot>
+  <slot>add_module()</slot>
+  <slot>remove_module()</slot>
+  <slot>add_name()</slot>
+  <slot>remove_name()</slot>
+  <slot>add_pn()</slot>
+  <slot>remove_pn()</slot>
+ </slots>
+</ui>
