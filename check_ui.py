@@ -54,9 +54,9 @@ class CheckUI(QMainWindow,Ui_MainWindow):
         #在客户栏中初始化列表
         self.custom_cb.addItems( self.cfg.code_data.keys())
     def logout(self):
-        print(f"用户{self.user}注销登陆:"r)
+        print(f"用户{self.user}注销登陆:")
         #待实现
-        pass
+    
 
     def showAuthor(self):
         QMessageBox.about(self,"关于作者",f"版权归@<b>{__author__}</b>所有\
