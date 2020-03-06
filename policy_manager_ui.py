@@ -6,7 +6,7 @@ __author__ ='huliang'
 from PyQt5.QtWidgets import QDialog ,QTableWidgetItem
 from ui.policy_manager import Ui_Dialog
 from edit_policy_ui import EditPolicy
-from config import Config
+from utils import Config
 
 
 class PolicyManager(QDialog,Ui_Dialog):

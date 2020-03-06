@@ -4,7 +4,7 @@ __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QDialog , QTableWidgetItem ,QComboBox
 from ui.edit_item import  Ui_policy_dialog
-from config import Config
+from utils import Config
 
 class EditItem(QDialog,Ui_policy_dialog):
     def __init__(self,parent=None,*arg,**kwargs):

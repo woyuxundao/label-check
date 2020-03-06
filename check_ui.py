@@ -9,11 +9,9 @@ from PyQt5.QtGui import QIcon , QColor
 from PyQt5.QtCore import Qt , QDateTime
 from ui.check import Ui_MainWindow
 from policy_manager_ui import PolicyManager
-# from edit_poliy_ui import EditPolicy
 from edit_item_ui import EditItem
 from checker import Checker
-from config import Config
-from utils import Log
+from utils import Log ,Config
 
 class CheckUI(QMainWindow,Ui_MainWindow):
     def __init__(self,parent=None,*arg,**kwargs):

@@ -42,19 +42,19 @@ class Ui_Form(object):
         self.label_2.setStyleSheet("font: 75 11pt \"Arial\";")
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.password_ln = QtWidgets.QLineEdit(self.layoutWidget)
-        self.password_ln.setStyleSheet("QLineEdit {\n"
+        self.passwd_ln = QtWidgets.QLineEdit(self.layoutWidget)
+        self.passwd_ln.setStyleSheet("QLineEdit {\n"
 "    font: 75 11pt \"Arial\";\n"
 "}\n"
 "QLineEdit:focus ,QLineEdit:hover{\n"
 "    border:none;\n"
 "    border-bottom:1px solid rgb(170, 255, 255);\n"
 "}")
-        self.password_ln.setText("")
-        self.password_ln.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.password_ln.setClearButtonEnabled(True)
-        self.password_ln.setObjectName("password_ln")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.password_ln)
+        self.passwd_ln.setText("")
+        self.passwd_ln.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwd_ln.setClearButtonEnabled(True)
+        self.passwd_ln.setObjectName("passwd_ln")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwd_ln)
         self.label_3 = QtWidgets.QLabel(self.layoutWidget)
         self.label_3.setStyleSheet("font: 75 11pt \"Arial\";")
         self.label_3.setObjectName("label_3")
@@ -76,6 +76,7 @@ class Ui_Form(object):
         self.label_4.setObjectName("label_4")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
         self.department_cb = QtWidgets.QComboBox(self.layoutWidget)
+        self.department_cb.setFocusPolicy(QtCore.Qt.TabFocus)
         self.department_cb.setStyleSheet("font: 75 11pt \"Arial\";")
         self.department_cb.setObjectName("department_cb")
         self.department_cb.addItem("")
@@ -90,6 +91,7 @@ class Ui_Form(object):
         self.label_5.setObjectName("label_5")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_5)
         self.job_cb = QtWidgets.QComboBox(self.layoutWidget)
+        self.job_cb.setFocusPolicy(QtCore.Qt.TabFocus)
         self.job_cb.setStyleSheet("font: 75 11pt \"Arial\";")
         self.job_cb.setObjectName("job_cb")
         self.job_cb.addItem("")

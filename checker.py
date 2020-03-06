@@ -10,7 +10,7 @@ DateRule 接受参数 年yy y Y 月mm M 日 dd 周期 ww
  '''
 
 from abc import ABCMeta , abstractmethod
-from config import Config
+from utils import Config
 
 class RuleAnallysisError(Exception):
     """规则解析错误"""

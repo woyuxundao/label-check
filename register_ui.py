@@ -16,7 +16,7 @@ class RegisterUI(QWidget,Ui_Form):
     def register_info(self):
         user = self.user_ln.text()
         pd1 =self.passwd_re_ln.text()
-        pd2 =self.password_ln.text()
+        pd2 =self.passwd_ln.text()
         if pd1 != pd2 or len(pd1) == 0:
             self.result_ln.setText("两次密码不相符")
             return

@@ -4,7 +4,7 @@ __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QDialog , QTableWidgetItem ,QComboBox
 from ui.edit_policy import  Ui_policy_dialog
-from config import Config
+from utils import Config
 from checker import Policy
 
 class EditPolicy(QDialog,Ui_policy_dialog):

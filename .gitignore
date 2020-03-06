@@ -2,5 +2,7 @@
 /.vscode
 /build
 /dist
+/etc
 /resource
 *.pyc
+*.json

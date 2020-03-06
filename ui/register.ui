@@ -72,7 +72,7 @@ QLineEdit:focus ,QLineEdit:hover{
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="password_ln">
+     <widget class="QLineEdit" name="passwd_ln">
       <property name="styleSheet">
        <string notr="true">QLineEdit {
 	font: 75 11pt &quot;Arial&quot;;
@@ -134,6 +134,9 @@ QLineEdit:focus ,QLineEdit:hover{
     </item>
     <item row="3" column="1">
      <widget class="QComboBox" name="department_cb">
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
       </property>
@@ -181,6 +184,9 @@ QLineEdit:focus ,QLineEdit:hover{
     </item>
     <item row="4" column="1">
      <widget class="QComboBox" name="job_cb">
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
       </property>

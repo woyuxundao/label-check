@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QRegExp ,pyqtSignal,Qt
-
 from ui.login import Ui_Form
 
 class LoginUI(QWidget,Ui_Form):
