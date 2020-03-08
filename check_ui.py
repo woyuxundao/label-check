@@ -67,10 +67,12 @@ class CheckUI(QMainWindow,Ui_MainWindow):
 
     def showPolicyManager(self):
         e =PolicyManager()
+        e.setConfig(self.cfg)
         e.exec()
     
     def showItemManager(self):
         e = EditItem()
+        e.setConfig(self.cfg)
         e.exec()
 
     def closeEvent(self,evt):
@@ -126,7 +128,7 @@ class CheckUI(QMainWindow,Ui_MainWindow):
         #扫描的时间
         now = QDateTime.currentDateTime().toString("yyyy-MM-dd HH-mm-ss")
         #设置条码校验器
-        self.chk = Checker()
+        self.chk = Checker(self.cfg)
         # print("radio 状态",self.auto_radio.isChecked)
         if not self.auto_radio.isChecked():
             customer = self.custom_cb.currentText()

@@ -10,18 +10,23 @@ class EditItem(QDialog,Ui_policy_dialog):
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)   
-        self.setup()   
-
+         
     def setup(self):
         self.label.setText("编辑条目")
-        self.cfg = Config()
-        self.policy_cb.addItems(self.cfg.code_data.keys())
+        self.policy_cb.addItems(self.cfg.policy_cfg.keys())
+        # print("item 添加的item",self.cfg.policy_cfg.keys())
         self.tableWidget.setHorizontalHeaderLabels(("机型",'品名','料号'))
         self.todo = []
-        
+
+    def setConfig(self,config):
+        self.cfg = config    
+        self.setup()  
 
     def change_policy(self,txt:str):
         policy_name = self.policy_cb.currentText()
+        # print(self.cfg.code_data)
+        if not self.cfg.code_data.get(policy_name):
+            return     
         self._policy_tmp =self.cfg.code_data[policy_name]
         self.module_cb.clear()
         self.name_cb.clear()
@@ -31,6 +36,8 @@ class EditItem(QDialog,Ui_policy_dialog):
     
     def change_module(self,txt:str):
         module_name = self.module_cb.currentText()
+        if not self._policy_tmp.get(module_name):
+            return
         self._module_tmp = self._policy_tmp[module_name]
         self.name_cb.clear()
         self.pn_cb.clear()
@@ -40,6 +47,8 @@ class EditItem(QDialog,Ui_policy_dialog):
 
     def change_name(self,txt:str):
         name_name = self.name_cb.currentText()
+        if not self._module_tmp.get(name_name):
+            return
         self._name_tmp = self._module_tmp[name_name]
         self.pn_cb.clear()
         if len(name_name) >0:
@@ -133,6 +142,7 @@ class EditItem(QDialog,Ui_policy_dialog):
                 self.cfg.add_item(tmp[1][:1] +tmp_2)
         #界面刷新动作
         # self.tableWidget.clear()
+        self.todo=[]
         self.tableWidget.setRowCount(0)
         self.change_policy(self.policy_cb.currentText())
 

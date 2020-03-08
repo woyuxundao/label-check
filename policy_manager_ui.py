@@ -13,17 +13,14 @@ class PolicyManager(QDialog,Ui_Dialog):
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)
-
         #把已设置的信息的函数暂时存储,待最后决定是否保存
         self.todo_list ={"add":[],"remove":[]}#元素按照(函数,"")格式保存
-        self.cfg =Config()#配置类
-
-        self.setup()
-
         
+    def setConfig(self,config):
+        self.cfg = config   #配置类 
+        self.setup()       
 
-    def setup(self):
-      
+    def setup(self):      
         policy_len = len(self.cfg.policy_cfg.keys())
         if policy_len == 0:
             return
@@ -33,12 +30,10 @@ class PolicyManager(QDialog,Ui_Dialog):
             self.tableWidget.setItem(row , 0, QTableWidgetItem(kv[0]))
             self.tableWidget.setItem(row , 1, QTableWidgetItem(kv[1]))
 
-
     def todo(self):
         """待办事项"""
         for i in self.todo_list["remove"]:
             self.cfg.remove_policy(i)
-
         for i in self.todo_list["add"]:
             self.cfg.add_policy(i)
             
@@ -51,9 +46,8 @@ class PolicyManager(QDialog,Ui_Dialog):
     def new_policy(self):
         # print("创建一个新的窗口创建规则")      
         policy_w = EditPolicy() 
-
+        policy_w.setConfig(self.cfg)
         # print(self.policy_w.__dict__)
-        policy_w.setup()
         policy_w.exec()#QDialog类可行的模态窗口
         self.setup()
 
@@ -64,7 +58,8 @@ class PolicyManager(QDialog,Ui_Dialog):
             return
         txt = self.tableWidget.item(row,0).text()
         # print("row txt",row,txt)
-        policy_w = EditPolicy(self) 
+        policy_w = EditPolicy() 
+        policy_w.setConfig(self.cfg)
         policy_w.setup(txt)
         policy_w.exec()
         self.setup()

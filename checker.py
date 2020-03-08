@@ -10,7 +10,7 @@ DateRule 接受参数 年yy y Y 月mm M 日 dd 周期 ww
  '''
 
 from abc import ABCMeta , abstractmethod
-from utils import Config
+from utils import Config ,Log
 
 class RuleAnallysisError(Exception):
     """规则解析错误"""
@@ -49,9 +49,8 @@ class FixRule(RuleBase):
         if "?" in  self.args:
             self.__input__ = input          
             return self.reCheck #返回可调用的函数
-
         if len(self.args[0]) != self.length:
-            print(self.args, self.length)
+            # print(self.args, self.length)
             raise RuleAnallysisError("固定字符长度不对")
 
         if self.args[0] == input:
@@ -189,6 +188,7 @@ class Policy:
         self._rules =("FixRule","RegRule","DateRule","FlowRule")
         self.repeatFlag = True
         self.fixed_txt = None
+        self.log = None
         for item in policy_src.split(";"): 
             if item == "norepeat" or item.strip() == "":
                 self.repeatFlag =False
@@ -225,7 +225,12 @@ class Policy:
                 return result
 
             tmp = tmp[ rule.length: ]
-        return True ,""
+        if self.repeatFlag:
+            return True ,""
+        else:
+            if self.log is None:
+                self.log = Log()
+            return self.log.repeat_check(txt)
         #需要增加对重复的判定,在外部设置
 
     def add_fix_txt(self,fix:str):
@@ -238,16 +243,23 @@ class Policy:
 
 class Checker:
     """参数model设置时按要求匹配验证,否则扫描全部"""
-    def __init__(self):
+    def __init__(self,config):
         self.policys =[]
         self.model = None
         self.sucess = None
         if self.model and "customer" not in model  and "pn" not in model :
             raise Exception("字典参数model必须有custom和pn key的")       
         #从配置类中获取相应的
-        for name,policy_src in Config.policy_cfg.items():
+        if config:
+            self.cfg = config 
+        else :
+            from utils import Config
+            slef.cfg = Config()
+
+        # print("checker confg",self.cfg)
+        for name,policy_src in self.cfg.policy_cfg.items():
             self.policys.append(Policy(name,policy_src))
-    
+
     def setMode(self,model:dict):
         """"""
         self.model = model
@@ -259,7 +271,10 @@ class Checker:
             if self.model:
                 if policy.name == self.model["customer"]:
                     return self.checkOne(txt, policy , self.model)
-            for module, tmp  in Config.code_data[policy.name].items():
+            # print(self.cfg.code_data)
+            if not self.cfg.code_data.get(policy.name):
+                raise Exception(f"条码规则config资源不存在{policy.name} key")
+            for module, tmp  in self.cfg.code_data[policy.name].items():
                 for name , pns in tmp.items():          
                     for pn in pns:    
                         # print("customer module name pn:",policy.name ,module ,name ,pn)         

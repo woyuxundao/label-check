@@ -2,9 +2,10 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QRegExp ,pyqtSignal,Qt
 from ui.login import Ui_Form
+from utils import AccountManager
 
 class LoginUI(QWidget,Ui_Form):
-    sig_logined = pyqtSignal(str,str)
+    sig_logined = pyqtSignal(str)
     sig_registered = pyqtSignal()
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
@@ -36,7 +37,6 @@ class LoginUI(QWidget,Ui_Form):
 
     def remenber_passwd(self,chk:bool): 
         print("记住密码被选择",chk)
-        print()
         pass
 
     def auto_login(self,chk:bool):
@@ -58,11 +58,15 @@ class LoginUI(QWidget,Ui_Form):
             self.login_btn.setEnabled(False)    
     
     def login(self):
-        print("登陆按钮被点击")
+        # print("登陆按钮被点击")
         user = self.account_cb.currentText()
         password = self.passwd_ln.text()
-        self.sig_logined.emit(user,password)
-        
+        a = AccountManager()#帐号管理类
+        if a.validate(user,password):
+            # print("验证成功")
+            self.sig_logined.emit(user)
+        else:
+            self.result_lb.setText("验证失败,用户名或密码错误")        
 
 if __name__ == "__main__":
     import sys

@@ -5,16 +5,12 @@ __author__ ='huliang'
 import login_ui
 import register_ui
 import check_ui 
-from utils import AccountManager
 
-def validate(widget):
-    a = AccountManager()
-    def tmp(user:str , password:str) ->bool:
-        # print("正则核验")
-        if a.validate(user,password):
-            # print("验证成功")
-            widget.setAccount(user)
-            widget.show()
+def validate(*widget):
+    def tmp(user:str) :
+        widget[0].setAccount(user)
+        widget[0].show()
+        widget[1].hide()   
     return tmp
 
 if __name__ == '__main__':
@@ -25,7 +21,7 @@ if __name__ == '__main__':
     check_w = check_ui.CheckUI()
     register_w = register_ui.RegisterUI()
     login_w.sig_registered.connect(register_w.show)
-    login_w.sig_logined.connect(validate(check_w))
-
+    login_w.sig_logined.connect(validate(check_w,login_w))
     login_w.show()
     sys.exit(app.exec())
+

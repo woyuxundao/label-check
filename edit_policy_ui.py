@@ -12,10 +12,15 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)      
         self.todo_list =[] 
-        self.cfg =Config()#配置类
+        self.model = None
+
+    def setConfig(self,config):
+        self.cfg =config   #配置类 
+        self.setup()
 
     def setup(self,model=None):
         # print("model",model)
+        self.model = model
         if model is None:
             title= "新建规则"          
         else:
@@ -28,7 +33,7 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         now_rows = self.tableWidget.rowCount() 
         self.tableWidget.setRowCount(now_rows + 1)
         cb = QComboBox()
-        cb.addItems(self.cfg.policy_cate )
+        cb.addItems(self.cfg.policy_cate )#限定的几种规则
         self.tableWidget.setCellWidget(now_rows,1,cb)
         
         
@@ -42,9 +47,7 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             self.tableWidget.removeRow(row)
 
     def accept(self):
-        for i in self.todo_list:
-            self.cfg.edit_policy(*i)
- 
+        self.apply_items()
         self.close()
     
     def apply_items(self):
@@ -65,20 +68,22 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         except Exception as e:
             print("异常",e)
             apply_flag = False
+        
+        #检查配置是否存在数据,新增模式相同的规则名不可添加,编辑模式都可
+        add_result = self.cfg.edit_policy(policy_name,";".join(policy),bool(self.model))
 
         #校验成功
-        if apply_flag:
-            self.todo_list.append((policy_name,';'.join(policy)))
+        if apply_flag and add_result:
             result_text ="校验结果:成功"
-            result_style ="color:blue;"
-     
+            result_style ="color:blue;"     
         #校验失败
         else:
             result_text ="校验结果:失败"
             result_style ="color:red;"
-
         self.result_t.setText( result_text)
         self.result_t.setStyleSheet(result_style)
+
+
 
 if __name__ == '__main__':
     import sys

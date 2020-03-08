@@ -408,7 +408,7 @@ height:30px;</string>
   </connection>
   <connection>
    <sender>module_cb</sender>
-   <signal>activated(QString)</signal>
+   <signal>currentTextChanged(QString)</signal>
    <receiver>policy_dialog</receiver>
    <slot>change_module()</slot>
    <hints>
@@ -424,7 +424,7 @@ height:30px;</string>
   </connection>
   <connection>
    <sender>name_cb</sender>
-   <signal>activated(QString)</signal>
+   <signal>currentIndexChanged(QString)</signal>
    <receiver>policy_dialog</receiver>
    <slot>change_name()</slot>
    <hints>
