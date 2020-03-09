@@ -2,8 +2,10 @@ __pycache__
 .vscode
 build
 dist
+
 etc
 resource
+log
 
 *.pyc
 *.json
