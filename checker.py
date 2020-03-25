@@ -267,19 +267,24 @@ class Checker:
     def check(self,txt:str) -> (bool,str):
         '''校验输入的内容 '''
         # print("policys:",self.policys)
+        if self.model:
+                if self.model["customer"] in self.policys:
+                    return self.checkOne(txt, self.model["customer"] , self.model)
+                return False,"!程序错误,条码规则有误"
+
         for policy in self.policys:
-            if self.model:
-                if policy.name == self.model["customer"]:
-                    return self.checkOne(txt, policy , self.model)
             # print(self.cfg.code_data)
             if not self.cfg.code_data.get(policy.name):
-                raise Exception(f"条码规则config资源不存在{policy.name} key")
+                continue #预防条码的相关条目还未输入导致的程序崩溃
+                # return  False,f"条码规则config资源不存在{policy.name} key"
+
             for module, tmp  in self.cfg.code_data[policy.name].items():
                 for name , pns in tmp.items():          
                     for pn in pns:    
                         # print("customer module name pn:",policy.name ,module ,name ,pn)         
-                        return self.checkOne(txt,policy,{"customer":policy.name,"module":module,"name":name,"pn":pn })
-
+                        result = self.checkOne(txt,policy,{"customer":policy.name,"module":module,"name":name,"pn":pn })
+                        if result[0]:
+                            return result
         return False,"没有匹配的规则"
 
     def checkOne(self, txt:str, policy, model:dict ) -> (bool,str):

@@ -35,6 +35,8 @@ class Ui_Form(object):
 "    border:none;\n"
 "    border-bottom:1px solid rgb(170, 255, 255);\n"
 "}")
+        self.user_ln.setText("")
+        self.user_ln.setAlignment(QtCore.Qt.AlignCenter)
         self.user_ln.setClearButtonEnabled(True)
         self.user_ln.setObjectName("user_ln")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.user_ln)
@@ -52,6 +54,7 @@ class Ui_Form(object):
 "}")
         self.passwd_ln.setText("")
         self.passwd_ln.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwd_ln.setAlignment(QtCore.Qt.AlignCenter)
         self.passwd_ln.setClearButtonEnabled(True)
         self.passwd_ln.setObjectName("passwd_ln")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwd_ln)
@@ -68,6 +71,7 @@ class Ui_Form(object):
 "    border-bottom:1px solid rgb(170, 255, 255);\n"
 "}")
         self.passwd_re_ln.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwd_re_ln.setAlignment(QtCore.Qt.AlignCenter)
         self.passwd_re_ln.setClearButtonEnabled(True)
         self.passwd_re_ln.setObjectName("passwd_re_ln")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwd_re_ln)
@@ -125,6 +129,7 @@ class Ui_Form(object):
 "    border:none;\n"
 "    border-bottom:1px solid rgb(170, 255, 255);\n"
 "}")
+        self.email_ln.setAlignment(QtCore.Qt.AlignCenter)
         self.email_ln.setClearButtonEnabled(True)
         self.email_ln.setObjectName("email_ln")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.email_ln)

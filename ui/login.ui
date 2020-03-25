@@ -199,7 +199,7 @@ QLineEdit:hover {
          <item row="4" column="0" colspan="3">
           <widget class="QPushButton" name="login_btn">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="minimumSize">
             <size>
@@ -220,6 +220,9 @@ QPushButton:disabled {
            </property>
            <property name="text">
             <string>登陆</string>
+           </property>
+           <property name="shortcut">
+            <string>Enter</string>
            </property>
            <property name="flat">
             <bool>false</bool>
@@ -258,6 +261,12 @@ color: rgb(255, 0, 0);</string>
            </property>
            <property name="text">
             <string>记住密码</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -381,50 +390,18 @@ color: rgb(255, 0, 0);</string>
    </hints>
   </connection>
   <connection>
-   <sender>remenber_rd</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Form</receiver>
-   <slot>remenber_passwd()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>487</x>
-     <y>351</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>650</x>
-     <y>305</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>autologin_rd</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Form</receiver>
-   <slot>auto_login()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>355</x>
-     <y>348</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-88</x>
-     <y>298</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>passwd_ln</sender>
-   <signal>textEdited(QString)</signal>
+   <signal>textChanged(QString)</signal>
    <receiver>Form</receiver>
    <slot>passwd_change()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>487</x>
-     <y>305</y>
+     <x>453</x>
+     <y>289</y>
     </hint>
     <hint type="destinationlabel">
-     <x>683</x>
-     <y>262</y>
+     <x>694</x>
+     <y>304</y>
     </hint>
    </hints>
   </connection>
@@ -435,12 +412,12 @@ color: rgb(255, 0, 0);</string>
    <slot>login()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>315</x>
+     <x>337</x>
      <y>439</y>
     </hint>
     <hint type="destinationlabel">
-     <x>306</x>
-     <y>583</y>
+     <x>328</x>
+     <y>578</y>
     </hint>
    </hints>
   </connection>

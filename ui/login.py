@@ -93,7 +93,7 @@ class Ui_Form(object):
         self.autologin_rd.setObjectName("autologin_rd")
         self.gridLayout.addWidget(self.autologin_rd, 2, 0, 1, 2)
         self.login_btn = QtWidgets.QPushButton(self.widget_2)
-        self.login_btn.setEnabled(True)
+        self.login_btn.setEnabled(False)
         self.login_btn.setMinimumSize(QtCore.QSize(0, 50))
         self.login_btn.setStyleSheet("QPushButton {    \n"
 "    font: 25 14pt \"等线 Light\";    \n"
@@ -119,6 +119,8 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.result_lb, 3, 0, 1, 3)
         self.remenber_rd = QtWidgets.QRadioButton(self.widget_2)
         self.remenber_rd.setMinimumSize(QtCore.QSize(0, 30))
+        self.remenber_rd.setCheckable(True)
+        self.remenber_rd.setChecked(False)
         self.remenber_rd.setObjectName("remenber_rd")
         self.gridLayout.addWidget(self.remenber_rd, 2, 2, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.widget_2)
@@ -158,9 +160,7 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         self.register_btn.clicked.connect(Form.regiser_btn)
         self.qrcode_btn.clicked.connect(Form.qrcode_show)
-        self.remenber_rd.clicked['bool'].connect(Form.remenber_passwd)
-        self.autologin_rd.clicked['bool'].connect(Form.auto_login)
-        self.passwd_ln.textEdited['QString'].connect(Form.passwd_change)
+        self.passwd_ln.textChanged['QString'].connect(Form.passwd_change)
         self.login_btn.clicked.connect(Form.login)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -173,6 +173,7 @@ class Ui_Form(object):
         self.passwd_ln.setPlaceholderText(_translate("Form", "必须包含字母和数字"))
         self.autologin_rd.setText(_translate("Form", "自动登陆"))
         self.login_btn.setText(_translate("Form", "登陆"))
+        self.login_btn.setShortcut(_translate("Form", "Enter"))
         self.remenber_rd.setText(_translate("Form", "记住密码"))
         self.label_3.setText(_translate("Form", "密码:"))
 import img_rc

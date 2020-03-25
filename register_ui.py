@@ -11,6 +11,7 @@ class RegisterUI(QWidget,Ui_Form):
     # sig_registered = pyqtSignal(str,str)
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
     def register_info(self):
