@@ -2,11 +2,8 @@ __pycache__
 .vscode
 build
 dist
-
-etc
-resource
 log
-
+*.ui
 *.pyc
 *.json
 *.db
