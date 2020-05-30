@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt ,pyqtSignal
 from ui import Ui_Register 
 from utils import AccountManager
+from valiator import *
 
 class RegisterUI(QWidget,Ui_Register):
     # sig_registered = pyqtSignal(str,str)
@@ -13,6 +14,9 @@ class RegisterUI(QWidget,Ui_Register):
         super().__init__(parent,*arg,**kwargs)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
+        self.user_ln.setValidator(Valid_user)
+        self.passwd_ln.setValidator(Valid_passwd)
+        self.email_ln.setValidator(Valid_email)
 
     def register_info(self):
         user = self.user_ln.text()

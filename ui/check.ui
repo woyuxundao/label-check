@@ -441,8 +441,7 @@ font: 11pt &quot;Arial&quot;;</string>
        <item>
         <widget class="QTableWidget" name="tableWidget">
          <property name="styleSheet">
-          <string notr="true">
-</string>
+          <string notr="true"/>
          </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
@@ -721,7 +720,7 @@ font: 11pt &quot;Arial&quot;;</string>
  <connections>
   <connection>
    <sender>module_cb</sender>
-   <signal>activated(QString)</signal>
+   <signal>currentTextChanged(QString)</signal>
    <receiver>MainWindow</receiver>
    <slot>module_change()</slot>
    <hints>
@@ -737,7 +736,7 @@ font: 11pt &quot;Arial&quot;;</string>
   </connection>
   <connection>
    <sender>name_cb</sender>
-   <signal>activated(QString)</signal>
+   <signal>currentTextChanged(QString)</signal>
    <receiver>MainWindow</receiver>
    <slot>name_change()</slot>
    <hints>
@@ -769,7 +768,7 @@ font: 11pt &quot;Arial&quot;;</string>
   </connection>
   <connection>
    <sender>custom_cb</sender>
-   <signal>activated(QString)</signal>
+   <signal>currentTextChanged(QString)</signal>
    <receiver>MainWindow</receiver>
    <slot>custom_change()</slot>
    <hints>

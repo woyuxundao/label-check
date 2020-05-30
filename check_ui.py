@@ -120,6 +120,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         if index + 2 < len(self.combo_list):
             self.combo_list[index+1].addItems(tmp[txt].keys()) 
         else:  
+            # print("cblist",index+1,len(self.combo_list),tmp[txt])
             self.combo_list[index+1].addItems(tmp[txt])   
 
     def custom_change(self,txt):
@@ -137,38 +138,32 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         
     def input_scan(self, codebar:str):
         # print("扫描的数据:%s"%codebar)
-        #扫描的时间
         now = QDateTime.currentDateTime().toString("yyyy-MM-dd HH-mm-ss")
         #设置条码校验器
         if not self.chk:
             self.chk = Checker(self.cfg)
+
         # print("radio 状态",self.auto_radio.isChecked)
         if not self.auto_radio.isChecked():
-            customer = self.custom_cb.currentText()
-            module = self.module_cb.currentText()
-            name = self.name_cb.currentText()
-            pn = self.pn_cb.currentText()
-            # print("pn:",pn)
+            customer ,module ,name ,pn = (i.currentText() for i in self.combo_list)
             #只有combobox有数据时才进行单独的验证
             if len(customer) > 0 and len(pn) >0:           
                 self.chk.setMode({"customer":customer,"module":module,"name":name,"pn":pn})
 
         result_b ,result_t =self.chk.check(codebar)
         # print(result_b,result_t)
-
         if result_b:
-            self.custom_change(self.chk.sucess["customer"])
-            self.module_change(self.chk.sucess["module"])
-            self.name_change(self.chk.sucess["name"])
-            self.pn_cb.setCurrentText(self.chk.sucess["module"])
+            self.set_combo_text(self.chk.sucess.values())
             style= "color:blue;"
             result_t  ="PASS"
         else:
-            style= "background-color:red;"
+            style= "background-color:#FF3030;"
         style += 'font: 11pt "楷体";padding-left:20px;border:none;border-radius:25px;'
         self.result_txt.setStyleSheet(style)
         self.result_txt.setText(result_t+":\n"+codebar)  
-        
+        self.write_log(now, result_t, codebar)
+
+    def write_log(self,now,result,codebar):
         #在tabelwidget中加入记录    
         rows =self.tableWidget.rowCount()
         # print("表格的数据:" ,self.tableWidget.itemAt(rows,0).text())
@@ -179,20 +174,25 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         else:
             newrow = rows -1        
         # print("当前有%s行"%newrow)  
-        data = [now, result_t, codebar, self.user]
+        data = [now, result, codebar, self.user]
         self._addData(self.tableWidget, newrow, data)
-        # _addData(self.tableWidget, 1, data)
         self.log.make(data)
 
     def _addData(self,w:QTableWidget, row:int ,Data :List[str]):
+        font_color = QColor(0,0,0)
+        if Data[1] != "PASS":
+            font_color = QColor(255,0,0)
         for n,d in enumerate(Data) :
             item =QTableWidgetItem(d)
             # print('正在添加数据', item)
-            item.setTextAlignment( Qt.AlignCenter )
-            if Data[1] != "PASS":
-                item.setForeground(QColor(255,0,0))
+            item.setTextAlignment(Qt.AlignCenter )
+            item.setForeground(font_color)
             w.setItem(row ,n ,item)
-        
+
+    def set_combo_text(self,args):
+        '''设置QComboBox当前文本，args为所用对应的数值迭代器'''
+        for combo ,txt in zip(self.combo_list,args):
+            combo.setCurrentText(txt)
 
 if  __name__ == '__main__':
     import sys

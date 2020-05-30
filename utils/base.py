@@ -3,11 +3,8 @@
 __author__ ='huliang'
 '''工具模块 '''
 import os
-import csv
 import json
-import sqlite3
 from typing import Iterable, Tuple ,List
-import config as cf
 
 def path_fixed(filename:str) ->bool:
     #处理文件路径的问题

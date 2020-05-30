@@ -5,13 +5,15 @@ __author__ ='huliang'
 import os
 import hashlib
 import json
-from .utils import path_fixed ,pre_read
-from config import Config as cf
+import csv
+from typing import Iterable
+from .base import path_fixed ,pre_read
+import settings as cf
 
 class Log():
     """记录校验记录的类"""
     def __init__(self):
-        filename =os.path.join( os.path.dirname(__file__) ,cf.CHECK_SAVE_FILE) 
+        filename =os.path.join( cf.PROJECT_DIR ,cf.CHECK_SAVE_FILE) 
         flag = path_fixed(filename)
         self.csvf = open(filename,"a+",encoding="utf-8",newline='\n')
         self.writer = csv.writer(self.csvf, delimiter=',')

@@ -3,19 +3,18 @@
 __author__ ='huliang'
 '''帐号管理类 '''
 import os
-import hashlib
 import json
 from typing import Iterable, Tuple ,List
-from .utils import path_fixed ,pre_read
-from config import Config as cf
+from .base import path_fixed ,pre_read
+import settings  as cf
 
 class Config:
     policy_cfg ={}
     code_data = {}
     policy_cate=("FixRule","RegRule","DateRule","FlowRule")  
     def __init__(self):   
-        self.plicy_cfg_f = os.path.join( os.path.dirname(__file__) ,cf.POLICY_CFG) 
-        self.fixcode_cfg_f =os.path.join( os.path.dirname(__file__) ,cf.FIXCODE_CFG) 
+        self.plicy_cfg_f = os.path.join( cf.PROJECT_DIR ,cf.POLICY_CFG) 
+        self.fixcode_cfg_f =os.path.join( cf.PROJECT_DIR,cf.FIXCODE_CFG) 
         self.__class__.policy_cfg = pre_read(self.plicy_cfg_f) #预读数据到类变量
         self.__class__.code_data = pre_read(self.fixcode_cfg_f)
 

@@ -9,4 +9,4 @@ from .policy_manager import Ui_Dialog as Ui_policy_manager
 from .register import Ui_Form as Ui_Register
 from .tools import MyLineEdit
 
-__all__ = [Ui_MainWindow, Ui_item_dialog, Ui_policy_dialog , Ui_Login ,Ui_policy_manager, Ui_Register,MyLineEdit]
+# __all__ = ["Ui_MainWindow", "Ui_item_dialog", "Ui_policy_dialog" , "Ui_Login" ,"Ui_policy_manager", "Ui_Register","MyLineEdit"]

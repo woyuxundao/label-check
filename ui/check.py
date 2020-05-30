@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'h:\hl\label_check\ui\check.ui'
+# Form implementation generated from reading ui file 'h:\hl\UI_label\ui\check.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.2
 #
@@ -190,8 +190,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.tableWidget = QtWidgets.QTableWidget(self.widget_2)
-        self.tableWidget.setStyleSheet("\n"
-"")
+        self.tableWidget.setStyleSheet("")
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableWidget.setRowCount(1)
@@ -309,10 +308,10 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_5.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.module_cb.activated['QString'].connect(MainWindow.module_change)
-        self.name_cb.activated['QString'].connect(MainWindow.name_change)
+        self.module_cb.currentTextChanged['QString'].connect(MainWindow.module_change)
+        self.name_cb.currentTextChanged['QString'].connect(MainWindow.name_change)
         self.input_ln.signal_keyboarded.connect(MainWindow.input_scan)
-        self.custom_cb.activated['QString'].connect(MainWindow.custom_change)
+        self.custom_cb.currentTextChanged['QString'].connect(MainWindow.custom_change)
         self.auto_radio.toggled['bool'].connect(MainWindow.check_model_change)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

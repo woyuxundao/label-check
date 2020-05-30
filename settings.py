@@ -2,7 +2,9 @@
 # -*- coding:utf-8 -*-
 __author__ ='huliang'
 ''' 软件的配置信息'''
+import os
 
+PROJECT_DIR =os.path.dirname(__file__)
 #各客户条码规则设置文件
 POLICY_CFG =  "etc/policy_cfg.json"
 #固定码规则设置文件

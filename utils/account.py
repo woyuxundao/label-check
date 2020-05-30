@@ -6,14 +6,16 @@ import os
 import hashlib
 import json
 from typing import Iterable, Tuple ,List
-from .utils import path_fixed ,pre_read
-from config import Config as cf
+from .base import path_fixed ,pre_read
+import settings as cf
+
+
 
 class AccountManager():
     """建立帐号管理的模块"""   
     def __init__(self,*args, **kwargs):
         self.ACCOUNT = {}
-        self.filename =os.path.join( os.path.dirname(__file__) ,cf.ACCOUNT_CFG) 
+        self.filename =os.path.join( cf.PROJECT_DIR ,cf.ACCOUNT_CFG) 
         if path_fixed(filename):
             self.ACCOUNT = pre_read(self.filename)
 
