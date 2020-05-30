@@ -6,6 +6,7 @@
     <file>resource/login.png</file>
     <file>resource/ad.png</file>
     <file>resource/rm.png</file>
+    <file>resource/background.png</file>
   </qresource>
   <qresource prefix="fg">
     <file>resource/qrcode-bg.jpg</file>

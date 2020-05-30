@@ -4,10 +4,10 @@ __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt ,pyqtSignal
-from ui.register import Ui_Form
+from ui import Ui_Register 
 from utils import AccountManager
 
-class RegisterUI(QWidget,Ui_Form):
+class RegisterUI(QWidget,Ui_Register):
     # sig_registered = pyqtSignal(str,str)
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)

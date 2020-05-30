@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>policy_dialog</class>
- <widget class="QDialog" name="policy_dialog">
+ <class>item_dialog</class>
+ <widget class="QDialog" name="item_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -345,7 +345,7 @@ height:30px;</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -361,7 +361,7 @@ height:30px;</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -377,7 +377,7 @@ height:30px;</string>
   <connection>
    <sender>apply_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>apply_items()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -393,7 +393,7 @@ height:30px;</string>
   <connection>
    <sender>policy_cb</sender>
    <signal>currentTextChanged(QString)</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>change_policy()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -409,7 +409,7 @@ height:30px;</string>
   <connection>
    <sender>module_cb</sender>
    <signal>currentTextChanged(QString)</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>change_module()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -425,7 +425,7 @@ height:30px;</string>
   <connection>
    <sender>name_cb</sender>
    <signal>currentIndexChanged(QString)</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>change_name()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -441,7 +441,7 @@ height:30px;</string>
   <connection>
    <sender>module_add_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>add_module()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -457,7 +457,7 @@ height:30px;</string>
   <connection>
    <sender>module_rm_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>remove_module()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -473,7 +473,7 @@ height:30px;</string>
   <connection>
    <sender>name_add_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>add_name()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -489,7 +489,7 @@ height:30px;</string>
   <connection>
    <sender>name_rm_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>remove_name()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -505,7 +505,7 @@ height:30px;</string>
   <connection>
    <sender>pn_add_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>add_pn()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -521,7 +521,7 @@ height:30px;</string>
   <connection>
    <sender>pn_rm_btn</sender>
    <signal>clicked()</signal>
-   <receiver>policy_dialog</receiver>
+   <receiver>item_dialog</receiver>
    <slot>remove_pn()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'l:\label_check\ui\check.ui'
+# Form implementation generated from reading ui file 'h:\hl\label_check\ui\check.ui'
 #
-# Created by: PyQt5 UI code generator 5.14.1
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,12 +13,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1200, 800)
-        MainWindow.setMinimumSize(QtCore.QSize(1200, 800))
-        MainWindow.setMaximumSize(QtCore.QSize(1200, 800))
+        MainWindow.resize(960, 600)
+        MainWindow.setMinimumSize(QtCore.QSize(960, 600))
+        MainWindow.setMaximumSize(QtCore.QSize(960, 600))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/bo/resource/ico.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setFocusPolicy(QtCore.Qt.NoFocus)
         self.centralwidget.setObjectName("centralwidget")
@@ -31,7 +32,7 @@ class Ui_MainWindow(object):
         self.widget.setStyleSheet("")
         self.widget.setObjectName("widget")
         self.formLayout = QtWidgets.QFormLayout(self.widget)
-        self.formLayout.setContentsMargins(-1, 40, -1, 50)
+        self.formLayout.setContentsMargins(-1, 15, -1, 10)
         self.formLayout.setObjectName("formLayout")
         self.auto_radio = QtWidgets.QRadioButton(self.widget)
         self.auto_radio.setStyleSheet("font: 75 12pt \"Arial\";")
@@ -50,8 +51,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
-        self.label.setMinimumSize(QtCore.QSize(0, 40))
-        self.label.setStyleSheet("font: 75 14pt \"Arial\";")
+        self.label.setMinimumSize(QtCore.QSize(0, 30))
+        self.label.setStyleSheet("font: 75 11pt \"Arial\";")
         self.label.setObjectName("label")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label)
         self.custom_cb = QtWidgets.QComboBox(self.widget)
@@ -61,9 +62,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.custom_cb.sizePolicy().hasHeightForWidth())
         self.custom_cb.setSizePolicy(sizePolicy)
-        self.custom_cb.setMinimumSize(QtCore.QSize(0, 40))
+        self.custom_cb.setMinimumSize(QtCore.QSize(0, 30))
         self.custom_cb.setStyleSheet("padding-left:10px;\n"
-"font: 75 15pt \"等线\";\n"
+"font: 75 11pt \"等线\";\n"
 "color: rgb(170, 0, 255);")
         self.custom_cb.setObjectName("custom_cb")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.custom_cb)
@@ -73,8 +74,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
         self.label_2.setSizePolicy(sizePolicy)
-        self.label_2.setMinimumSize(QtCore.QSize(0, 40))
-        self.label_2.setStyleSheet("font: 75 14pt \"Arial\";")
+        self.label_2.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_2.setStyleSheet("font: 75 11pt \"Arial\";")
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.module_cb = QtWidgets.QComboBox(self.widget)
@@ -84,9 +85,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.module_cb.sizePolicy().hasHeightForWidth())
         self.module_cb.setSizePolicy(sizePolicy)
-        self.module_cb.setMinimumSize(QtCore.QSize(0, 40))
+        self.module_cb.setMinimumSize(QtCore.QSize(0, 30))
         self.module_cb.setStyleSheet("padding-left:10px;\n"
-"font: 75 15pt \"等线\";\n"
+"font: 75 11pt \"等线\";\n"
 "color: rgb(170, 0, 255);")
         self.module_cb.setObjectName("module_cb")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.module_cb)
@@ -96,8 +97,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
         self.label_4.setSizePolicy(sizePolicy)
-        self.label_4.setMinimumSize(QtCore.QSize(0, 40))
-        self.label_4.setStyleSheet("font: 75 14pt \"Arial\";")
+        self.label_4.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_4.setStyleSheet("font: 75 11pt \"Arial\";")
         self.label_4.setObjectName("label_4")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_4)
         self.name_cb = QtWidgets.QComboBox(self.widget)
@@ -107,9 +108,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.name_cb.sizePolicy().hasHeightForWidth())
         self.name_cb.setSizePolicy(sizePolicy)
-        self.name_cb.setMinimumSize(QtCore.QSize(0, 40))
+        self.name_cb.setMinimumSize(QtCore.QSize(0, 30))
         self.name_cb.setStyleSheet("padding-left:10px;\n"
-"font: 75 15pt \"等线\";\n"
+"font: 75 11pt \"等线\";\n"
 "color: rgb(170, 0, 255);")
         self.name_cb.setObjectName("name_cb")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.name_cb)
@@ -119,8 +120,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
         self.label_6.setSizePolicy(sizePolicy)
-        self.label_6.setMinimumSize(QtCore.QSize(0, 40))
-        self.label_6.setStyleSheet("font: 75 14pt \"Arial\";")
+        self.label_6.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_6.setStyleSheet("font: 75 11pt \"Arial\";")
         self.label_6.setObjectName("label_6")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_6)
         self.pn_cb = QtWidgets.QComboBox(self.widget)
@@ -130,24 +131,22 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pn_cb.sizePolicy().hasHeightForWidth())
         self.pn_cb.setSizePolicy(sizePolicy)
-        self.pn_cb.setMinimumSize(QtCore.QSize(0, 40))
+        self.pn_cb.setMinimumSize(QtCore.QSize(0, 30))
         self.pn_cb.setStyleSheet("padding-left:10px;\n"
-"font: 75 15pt \"等线\";\n"
+"font: 75 11pt \"等线\";\n"
 "color: rgb(170, 0, 255);")
         self.pn_cb.setObjectName("pn_cb")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.pn_cb)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.formLayout.setItem(6, QtWidgets.QFormLayout.LabelRole, spacerItem1)
         self.label_7 = QtWidgets.QLabel(self.widget)
-        self.label_7.setStyleSheet("font: 16pt \"思源黑体 CN Regular\";")
+        self.label_7.setStyleSheet("font: 13pt \"思源黑体 CN Regular\";")
         self.label_7.setObjectName("label_7")
         self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_7)
         self.input_ln = MyLineEdit(self.widget)
-        self.input_ln.setMinimumSize(QtCore.QSize(0, 37))
+        self.input_ln.setMinimumSize(QtCore.QSize(0, 30))
         self.input_ln.setStyleSheet("MyLineEdit {\n"
-"    font: 14pt \"黑体\";\n"
+"    font: 15pt \"黑体\";\n"
 "    color:rgb(0, 0, 255);\n"
-"    padding-left:20px;\n"
+"    padding-left:8px;\n"
 "    border:none;\n"
 "    border-bottom:1px solid rgb(0, 0, 0) ;\n"
 "\n"
@@ -158,30 +157,32 @@ class Ui_MainWindow(object):
         self.input_ln.setText("")
         self.input_ln.setObjectName("input_ln")
         self.formLayout.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.input_ln)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.formLayout.setItem(8, QtWidgets.QFormLayout.LabelRole, spacerItem2)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.formLayout.setItem(8, QtWidgets.QFormLayout.LabelRole, spacerItem1)
         self.label_8 = QtWidgets.QLabel(self.widget)
         self.label_8.setStyleSheet("font: 16pt \"楷体\";\n"
 "color: rgb(75, 0, 225);")
         self.label_8.setObjectName("label_8")
         self.formLayout.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_8)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.formLayout.setItem(10, QtWidgets.QFormLayout.LabelRole, spacerItem3)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.formLayout.setItem(10, QtWidgets.QFormLayout.LabelRole, spacerItem2)
         self.result_txt = QtWidgets.QLineEdit(self.widget)
         self.result_txt.setEnabled(True)
         self.result_txt.setMinimumSize(QtCore.QSize(0, 50))
         self.result_txt.setStyleSheet("border:1px solid gray;\n"
-"border-radius:25px;\n"
+"border-radius:18px;\n"
 "background-color: rgba(255, 255, 255, 0);\n"
-"font: 14pt \"Arial\";")
+"font: 11pt \"Arial\";")
         self.result_txt.setText("")
         self.result_txt.setDragEnabled(False)
         self.result_txt.setReadOnly(True)
         self.result_txt.setClearButtonEnabled(False)
         self.result_txt.setObjectName("result_txt")
         self.formLayout.setWidget(11, QtWidgets.QFormLayout.SpanningRole, self.result_txt)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.formLayout.setItem(12, QtWidgets.QFormLayout.LabelRole, spacerItem4)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.formLayout.setItem(12, QtWidgets.QFormLayout.LabelRole, spacerItem3)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.formLayout.setItem(6, QtWidgets.QFormLayout.LabelRole, spacerItem4)
         self.horizontalLayout.addWidget(self.widget)
         self.widget_2 = QtWidgets.QWidget(self.centralwidget)
         self.widget_2.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
@@ -189,7 +190,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.tableWidget = QtWidgets.QTableWidget(self.widget_2)
-        self.tableWidget.setStyleSheet("border:1px solid gray;\n"
+        self.tableWidget.setStyleSheet("\n"
 "")
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
@@ -232,19 +233,24 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(0, 0, item)
+        self.tableWidget.horizontalHeader().setVisible(True)
+        self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(120)
-        self.tableWidget.horizontalHeader().setMinimumSectionSize(30)
+        self.tableWidget.horizontalHeader().setHighlightSections(True)
+        self.tableWidget.horizontalHeader().setMinimumSectionSize(20)
+        self.tableWidget.horizontalHeader().setSortIndicatorShown(True)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.verticalHeader().setVisible(True)
         self.tableWidget.verticalHeader().setCascadingSectionResizes(True)
         self.tableWidget.verticalHeader().setDefaultSectionSize(30)
-        self.tableWidget.verticalHeader().setMinimumSectionSize(20)
+        self.tableWidget.verticalHeader().setMinimumSectionSize(30)
         self.horizontalLayout_2.addWidget(self.tableWidget)
         self.horizontalLayout.addWidget(self.widget_2)
         self.horizontalLayout.setStretch(0, 3)
-        self.horizontalLayout.setStretch(1, 5)
+        self.horizontalLayout.setStretch(1, 6)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 23))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -324,6 +330,7 @@ class Ui_MainWindow(object):
         self.result_txt.setPlaceholderText(_translate("MainWindow", "在此处显示扫描区接受数据的验证结果"))
         item = self.tableWidget.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
+        item.setToolTip(_translate("MainWindow", "条码校验历史记录"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "时间"))
         item.setToolTip(_translate("MainWindow", "扫描的时间"))
@@ -356,13 +363,3 @@ class Ui_MainWindow(object):
         self.logout_ac.setText(_translate("MainWindow", "注销"))
 from .tools import MyLineEdit
 import img_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

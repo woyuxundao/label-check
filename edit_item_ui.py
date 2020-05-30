@@ -3,24 +3,22 @@
 __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QDialog , QTableWidgetItem ,QComboBox
-from ui.edit_item import  Ui_policy_dialog
+from ui import  Ui_item_dialog
 from utils import Config
 
-class EditItem(QDialog,Ui_policy_dialog):
+class EditItem(QDialog,Ui_item_dialog):
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
-        self.setupUi(self)   
+        self.setupUi(self) 
+        self.cfg = Config()  
+        self.setup()   
          
     def setup(self):
         self.label.setText("编辑条目")
         self.policy_cb.addItems(self.cfg.policy_cfg.keys())
         # print("item 添加的item",self.cfg.policy_cfg.keys())
         self.tableWidget.setHorizontalHeaderLabels(("机型",'品名','料号'))
-        self.todo = []
-
-    def setConfig(self,config):
-        self.cfg = config    
-        self.setup()  
+        self.todo = [] 
 
     def change_policy(self,txt:str):
         policy_name = self.policy_cb.currentText()
@@ -145,6 +143,7 @@ class EditItem(QDialog,Ui_policy_dialog):
         self.todo=[]
         self.tableWidget.setRowCount(0)
         self.change_policy(self.policy_cb.currentText())
+
 
 if __name__ == '__main__':
     import sys

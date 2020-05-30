@@ -3,8 +3,10 @@
 __author__ ='huliang'
 ''' 软件的配置信息'''
 
-#条码规则设置文件
+#各客户条码规则设置文件
 POLICY_CFG =  "etc/policy_cfg.json"
+#固定码规则设置文件
+FIXCODE_CFG =  "etc/fixcode_cfg.json"
 #帐号配置文件
 ACCOUNT_CFG = "etc/account.json"
 #条码校验记录文件

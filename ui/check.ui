@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>800</height>
+    <width>960</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1200</width>
-    <height>800</height>
+    <width>960</width>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1200</width>
-    <height>800</height>
+    <width>960</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,11 +29,14 @@
    <iconset resource="../img.qrc">
     <normaloff>:/bo/resource/ico.png</normaloff>:/bo/resource/ico.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,5">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,6">
     <property name="spacing">
      <number>10</number>
     </property>
@@ -59,10 +62,10 @@
       </property>
       <layout class="QFormLayout" name="formLayout">
        <property name="topMargin">
-        <number>40</number>
+        <number>15</number>
        </property>
        <property name="bottomMargin">
-        <number>50</number>
+        <number>10</number>
        </property>
        <item row="0" column="0">
         <widget class="QRadioButton" name="auto_radio">
@@ -114,11 +117,11 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+          <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
           <string>客户:</string>
@@ -139,12 +142,12 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true">padding-left:10px;
-font: 75 15pt &quot;等线&quot;;
+font: 75 11pt &quot;等线&quot;;
 color: rgb(170, 0, 255);</string>
          </property>
         </widget>
@@ -160,11 +163,11 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+          <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
           <string>机型:</string>
@@ -185,12 +188,12 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true">padding-left:10px;
-font: 75 15pt &quot;等线&quot;;
+font: 75 11pt &quot;等线&quot;;
 color: rgb(170, 0, 255);</string>
          </property>
         </widget>
@@ -206,11 +209,11 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+          <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
           <string>品名:</string>
@@ -231,12 +234,12 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true">padding-left:10px;
-font: 75 15pt &quot;等线&quot;;
+font: 75 11pt &quot;等线&quot;;
 color: rgb(170, 0, 255);</string>
          </property>
         </widget>
@@ -252,11 +255,11 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 75 14pt &quot;Arial&quot;;</string>
+          <string notr="true">font: 75 11pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
           <string>料号:</string>
@@ -277,36 +280,20 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true">padding-left:10px;
-font: 75 15pt &quot;等线&quot;;
+font: 75 11pt &quot;等线&quot;;
 color: rgb(170, 0, 255);</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="7" column="0">
         <widget class="QLabel" name="label_7">
          <property name="styleSheet">
-          <string notr="true">font: 16pt &quot;思源黑体 CN Regular&quot;;</string>
+          <string notr="true">font: 13pt &quot;思源黑体 CN Regular&quot;;</string>
          </property>
          <property name="text">
           <string>扫描输入条码:</string>
@@ -318,14 +305,14 @@ color: rgb(170, 0, 255);</string>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>37</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true">MyLineEdit {
-	font: 14pt &quot;黑体&quot;;
+	font: 15pt &quot;黑体&quot;;
 	color:rgb(0, 0, 255);
-	padding-left:20px;
+	padding-left:8px;
 	border:none;
 	border-bottom:1px solid rgb(0, 0, 0) ;
 
@@ -395,9 +382,9 @@ color: rgb(75, 0, 225);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">border:1px solid gray;
-border-radius:25px;
+border-radius:18px;
 background-color: rgba(255, 255, 255, 0);
-font: 14pt &quot;Arial&quot;;</string>
+font: 11pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
           <string/>
@@ -429,6 +416,19 @@ font: 14pt &quot;Arial&quot;;</string>
          </property>
         </spacer>
        </item>
+       <item row="6" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
     </item>
@@ -441,7 +441,7 @@ font: 14pt &quot;Arial&quot;;</string>
        <item>
         <widget class="QTableWidget" name="tableWidget">
          <property name="styleSheet">
-          <string notr="true">border:1px solid gray;
+          <string notr="true">
 </string>
          </property>
          <property name="editTriggers">
@@ -453,20 +453,35 @@ font: 14pt &quot;Arial&quot;;</string>
          <property name="rowCount">
           <number>1</number>
          </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderCascadingSectionResizes">
+          <bool>true</bool>
+         </attribute>
          <attribute name="horizontalHeaderMinimumSectionSize">
-          <number>30</number>
+          <number>20</number>
          </attribute>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>120</number>
          </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+          <bool>true</bool>
+         </attribute>
          <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
           <bool>true</bool>
          </attribute>
          <attribute name="verticalHeaderCascadingSectionResizes">
           <bool>true</bool>
          </attribute>
          <attribute name="verticalHeaderMinimumSectionSize">
-          <number>20</number>
+          <number>30</number>
          </attribute>
          <attribute name="verticalHeaderDefaultSectionSize">
           <number>30</number>
@@ -474,6 +489,9 @@ font: 14pt &quot;Arial&quot;;</string>
          <row>
           <property name="text">
            <string>1</string>
+          </property>
+          <property name="toolTip">
+           <string>条码校验历史记录</string>
           </property>
          </row>
          <column>
@@ -578,8 +596,8 @@ font: 14pt &quot;Arial&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
-     <height>26</height>
+     <width>960</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -708,8 +726,8 @@ font: 14pt &quot;Arial&quot;;</string>
    <slot>module_change()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>293</x>
-     <y>187</y>
+     <x>307</x>
+     <y>157</y>
     </hint>
     <hint type="destinationlabel">
      <x>-22</x>
@@ -724,8 +742,8 @@ font: 14pt &quot;Arial&quot;;</string>
    <slot>name_change()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>266</x>
-     <y>235</y>
+     <x>307</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>-15</x>
@@ -740,8 +758,8 @@ font: 14pt &quot;Arial&quot;;</string>
    <slot>input_scan()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>294</x>
-     <y>365</y>
+     <x>307</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
      <x>-20</x>
@@ -756,8 +774,8 @@ font: 14pt &quot;Arial&quot;;</string>
    <slot>custom_change()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>153</y>
+     <x>307</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
      <x>-33</x>
@@ -772,8 +790,8 @@ font: 14pt &quot;Arial&quot;;</string>
    <slot>check_model_change()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>84</y>
+     <x>51</x>
+     <y>59</y>
     </hint>
     <hint type="destinationlabel">
      <x>-20</x>

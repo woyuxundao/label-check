@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 __author__ ='huliang'
+__email__ = "huliang168168@sina.com"
 __vesion__ ="v0.1a"
 ''' '''
 from typing import List
-from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget
+from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget,QSystemTrayIcon,QAction,QMenu,QWidget,QApplication
 from PyQt5.QtGui import QIcon , QColor 
 from PyQt5.QtCore import Qt , QDateTime
 from ui.check import Ui_MainWindow
@@ -13,11 +14,13 @@ from edit_item_ui import EditItem
 from checker import Checker
 from utils import Log ,Config
 
-class CheckUI(QMainWindow,Ui_MainWindow):
+class CheckUI(Ui_MainWindow,QMainWindow):
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         # self.setAttribute( Qt.WA_SetWindowIcon )
+        self.setAttribute(Qt.WA_StyleSheet)
         self.setupUi(self)
+        self.chk =None
         self.setup()
         self.input_ln.setFocus()
 
@@ -33,7 +36,6 @@ class CheckUI(QMainWindow,Ui_MainWindow):
         
         #设置菜单栏的Action,绑定方法
         self.exit_ac.triggered.connect(self.close)
-        #
         self.edit_plicy_ac.triggered.connect(self.showPolicyManager)
         self.edit_item_ac.triggered.connect(self.showItemManager)
         self.ab_qt_ac.triggered.connect(lambda _,s="关于qt":QMessageBox.aboutQt(self,s))
@@ -42,122 +44,133 @@ class CheckUI(QMainWindow,Ui_MainWindow):
         self.logout_ac.triggered.connect(self.logout)
 
         #设置tabelwidgets表头的尺寸#
-        self.tableWidget.setColumnWidth(0,200)
+        self.tableWidget.setColumnWidth(0,140)
         self.tableWidget.setColumnWidth(1,120)
-        self.tableWidget.setColumnWidth(2,220)
-        
-        # self.tableWidget.setColumnWidth(3,100)
-        #setRowHeight(int row,int height)
+        self.tableWidget.setColumnWidth(2,200)   
+        #设置表头的行高
+        self.tableWidget.setRowHeight(0,20)
         
         #在客户栏中初始化列表
-        self.custom_cb.addItems( self.cfg.code_data.keys())
+        self.combo_list=(self.custom_cb,self.module_cb,self.name_cb,self.pn_cb)
+        self.custom_cb.addItems(self.cfg.code_data.keys())
+        
+        #设置系统托盘
+        self.tray = QSystemTrayIcon(self)
+        self.tray.setIcon(QIcon(":/bo/resource/ico.png"))
+        minimizeAction = QAction("最小化", self, triggered = self.hide)
+        maximizeAction = QAction("最大化", self, triggered = self.showMaximized)
+        restoreAction = QAction("恢复默认大小", self, triggered = self.showNormal)
+        quitAction = QAction("退出", self, triggered = QApplication.instance().quit)  # 退出APP
+        self.trayMenu = QMenu(self)
+        self.trayMenu.addAction(minimizeAction)
+        self.trayMenu.addAction(maximizeAction)
+        self.trayMenu.addAction(restoreAction)
+        self.trayMenu.addSeparator()
+        self.trayMenu.addAction(quitAction)
+        self.tray.setContextMenu(self.trayMenu)
+        self.tray.setToolTip('条码检查标签在这！')
+        self.tray.showMessage("条码", '托盘信息内容', icon=1) #icon的值  0没有图标  1是提示  2是警告  3是错误
+        self.tray.show()
+
     def logout(self):
         print(f"用户{self.user}注销登陆:")
         #待实现
     
-
     def showAuthor(self):
-        QMessageBox.about(self,"关于作者",f"版权归@<b>{__author__}</b>所有\
-            <br><br>Email:hulaing168168@sina.com")
-        
+        about_text= f'版权所有 @<b><strong>{__author__}</strong></b> 保留所有权利，本软件产品仅限个人基于个人目的使用,禁止将本软件用于生产、经营等商业用途或其他用途 <br>'+f'作者:{__author__} <br> 邮箱:{__email__}<br>'
+        QMessageBox.about(self,"关于作者",about_text)
 
     def showVersion(self):
-        QMessageBox.about(self,"验证系统版本",f"当前验证系统版本:{__vesion__}")
-        
+        QMessageBox.about(self,"验证系统版本",f"当前验证系统版本:{__vesion__}")       
 
     def showPolicyManager(self):
         e =PolicyManager()
-        e.setConfig(self.cfg)
         e.exec()
     
     def showItemManager(self):
         e = EditItem()
-        e.setConfig(self.cfg)
         e.exec()
 
     def closeEvent(self,evt):
         # print("关闭窗口")
         self.log =None
         evt.accept()
-
-    #以下程序销毁函数不能正确执行    
-    # def __del__(self):
-    #     del self.log
-
+        # evt.ignore()  # 忽略关闭事件
+        # self.hide()     # 隐藏窗体
 
     def check_model_change(self,model:bool):
         # print('校验模式变更:%s'%model)
         status = not model
-        self.custom_cb.setEnabled(status)
-        self.module_cb.setEnabled(status)
-        self.name_cb.setEnabled(status)
-        self.pn_cb.setEnabled(status)
+        for cb in self.combo_list:
+            cb.setEnabled(status)
 
-
-    def changeComboBox(self,cb,ncb,txt):
-        """改变combobox的信号处理方式"""
-        ncb.clear()     
-        ncb.addItems( cb.point[txt].keys() )
-   
-
+    def changeComboBox(self,combo,txt):
+        """改变combobox的信号处理方式"""    
+        if combo not in self.combo_list:
+            return
+        index = self.combo_list.index(combo)
+        for cb in self.combo_list[index+1:]:
+            cb.blockSignals(True)
+            cb.clear()
+            cb.blockSignals(False)
+        tmp = self.cfg.code_data   
+        if index > 0:
+            for cb in self.combo_list[:index]:
+                tmp = tmp[cb.currentText()]
+        if index + 2 < len(self.combo_list):
+            self.combo_list[index+1].addItems(tmp[txt].keys()) 
+        else:  
+            self.combo_list[index+1].addItems(tmp[txt])   
 
     def custom_change(self,txt):
         # print('客户变更:%s'%txt)     
-        self.custom_cb.point = self.cfg.code_data
-        self.changeComboBox(self.custom_cb,self.module_cb,txt)
+        self.changeComboBox(self.custom_cb,txt)
+        #修复客户规格为空时残留上一次数据
       
-
     def module_change(self,txt):
         # print('机型变更:%s'%txt)
-        self.module_cb.point =self.custom_cb.point[self.custom_cb.currentText()]
-        self.changeComboBox(self.module_cb,self.name_cb,txt)
-
-
+        self.changeComboBox(self.module_cb,txt)
 
     def name_change(self,txt):
-        # print('品名变更:%s'%txt)
-        self.name_cb.point = self.module_cb.point[self.module_cb.currentText()]
-        self.pn_cb.clear()    
-        self.pn_cb.addItems( self.name_cb.point[txt])
-        
-    # def pn_change(self,txt):
-    #     print('料号变更:%s'%txt)
+        # print('品名变更:%s'%txt)  
+        self.changeComboBox(self.name_cb,txt)   
         
     def input_scan(self, codebar:str):
         # print("扫描的数据:%s"%codebar)
         #扫描的时间
         now = QDateTime.currentDateTime().toString("yyyy-MM-dd HH-mm-ss")
         #设置条码校验器
-        self.chk = Checker(self.cfg)
+        if not self.chk:
+            self.chk = Checker(self.cfg)
         # print("radio 状态",self.auto_radio.isChecked)
         if not self.auto_radio.isChecked():
             customer = self.custom_cb.currentText()
             module = self.module_cb.currentText()
             name = self.name_cb.currentText()
             pn = self.pn_cb.currentText()
-            print("pn:",pn)
+            # print("pn:",pn)
             #只有combobox有数据时才进行单独的验证
             if len(customer) > 0 and len(pn) >0:           
                 self.chk.setMode({"customer":customer,"module":module,"name":name,"pn":pn})
 
         result_b ,result_t =self.chk.check(codebar)
+        # print(result_b,result_t)
 
         if result_b:
             self.custom_change(self.chk.sucess["customer"])
             self.module_change(self.chk.sucess["module"])
             self.name_change(self.chk.sucess["name"])
             self.pn_cb.setCurrentText(self.chk.sucess["module"])
-
             style= "color:blue;"
             result_t  ="PASS"
         else:
             style= "background-color:red;"
-        style += 'font: 16pt "楷体";padding-left:20px;border:none;border-radius:25px;'
+        style += 'font: 11pt "楷体";padding-left:20px;border:none;border-radius:25px;'
         self.result_txt.setStyleSheet(style)
-        self.result_txt.setText(result_t+":"+codebar)  
+        self.result_txt.setText(result_t+":\n"+codebar)  
+        
         #在tabelwidget中加入记录    
         rows =self.tableWidget.rowCount()
-
         # print("表格的数据:" ,self.tableWidget.itemAt(rows,0).text())
         if len(self.tableWidget.itemAt(rows,0).text()) >0:
             newrow = rows 
@@ -167,12 +180,11 @@ class CheckUI(QMainWindow,Ui_MainWindow):
             newrow = rows -1        
         # print("当前有%s行"%newrow)  
         data = [now, result_t, codebar, self.user]
-        self.addData(self.tableWidget, newrow, data)
-        # addData(self.tableWidget, 1, data)
-        
+        self._addData(self.tableWidget, newrow, data)
+        # _addData(self.tableWidget, 1, data)
         self.log.make(data)
 
-    def addData(self,w:QTableWidget, row:int ,Data :List[str]):
+    def _addData(self,w:QTableWidget, row:int ,Data :List[str]):
         for n,d in enumerate(Data) :
             item =QTableWidgetItem(d)
             # print('正在添加数据', item)
@@ -180,7 +192,6 @@ class CheckUI(QMainWindow,Ui_MainWindow):
             if Data[1] != "PASS":
                 item.setForeground(QColor(255,0,0))
             w.setItem(row ,n ,item)
-
         
 
 if  __name__ == '__main__':
@@ -188,6 +199,5 @@ if  __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     app =QApplication(sys.argv)
     window = CheckUI()
-
     window.show()
     sys.exit(app.exec_())

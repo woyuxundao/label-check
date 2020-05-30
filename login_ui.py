@@ -2,10 +2,10 @@ import os
 import json
 from PyQt5.QtWidgets import QWidget , QCompleter
 from PyQt5.QtCore import pyqtSignal, Qt
-from ui.login import Ui_Form
+from ui import Ui_Login
 from utils import AccountManager
 
-class LoginUI(QWidget,Ui_Form):
+class LoginUI(QWidget,Ui_Login):
     sig_logined = pyqtSignal(str)
     sig_registered = pyqtSignal()
     def __init__(self,parent=None,*arg,**kwargs):
@@ -22,13 +22,15 @@ class LoginUI(QWidget,Ui_Form):
         self.remember_list ={}
         if os.path.exists("autologin.cfg"):
             with open("autologin.cfg",'r') as f:
-                self.rember_list(json.loads(f.read()))
+                self.remember_list = json.loads(f.read())
+                print("remenber_list:",self.remember_list)
+
         if len(self.remember_list) >0:
             print("读取是否有自动登陆")
-            for key ,value in slef.rember_list.items:
+            for key ,value in self.remember_list.items():
                 if len(value) == 2:
                     self.login_check(key,value[0])
-            wordList = self.rember_list.keys()
+            wordList = self.remember_list.keys()
             completer = QCompleter(wordList, self)
             completer.setCaseSensitivity(Qt.CaseInsensitive)
             self.account_cb.setCompleter(completer)    
@@ -70,29 +72,18 @@ class LoginUI(QWidget,Ui_Form):
         else:
             self.login_btn.setEnabled(False)    
 
-    def login_check(self,user,password):
-        # print("正在验证")
-        a = AccountManager()#帐号管理类
-        if a.validate(user,password):            
-            if self.remenber_rd.isChecked:
-                self.remember_list.setdefault(user,[]).append((password,True)) 
-
-            if self.autologin_rd.isChecked:
-                self.remember_list.setdefault(user,[]).append((password,True))
-
-            with open("autologin.cfg","w+") as f:
-                f.write(json.dumps(self.remember_list))
-
-            self.sig_logined.emit(user)
-        else:
-            self.result_lb.setText("验证失败,用户名或密码错误")  
-
     def login(self):
         # print("登陆按钮被点击")
         user = self.account_cb.currentText()
         password = self.passwd_ln.text()
-        self.login_check(user,password)
+        autoflag= self.autologin_rd.isChecked()
+        remflag= self.remenber_rd.isChecked()
 
+        a = AccountManager()#帐号管理类
+        if a.validate(user,password,autoflag,remflag):   
+            self.sig_logined.emit(user)
+        else:
+            self.result_lb.setText("验证失败,用户名或密码错误")  
       
 
 if __name__ == "__main__":

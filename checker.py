@@ -2,11 +2,11 @@
 # -*- coding:utf-8 -*-
 __author__ ='huliang'
 '''检查器用于检查条码的信息是否正确
-用户设置的参数为:   FixRule:4,cs22;DateRule:4,yymm;Flow:6,base|16,exculde|io,
-模块之间用分好";"隔开,冒号":"分割规则和参数(参数用逗号","分割)
-FixRule 接受参数 字符串 del|-  replace|5-4 删除字符 ,替换字符(以-分割右替换左)
-FlowRule 接受参数 base|16 exculde|io 进制,排除字符
-DateRule 接受参数 年yy y Y 月mm M 日 dd 周期 ww
+用户设置的参数为:   4 FixRule cs22;4 DateRule yymm; Flow:6,base|16,exculde|io,
+模块之间用分好";"隔开,冒号":"分割规则和参数(参数用逗号","分割模块内的规则)。
+FixRule 接受参数 字符串 del|-  replace|5-4 删除字符 ,替换字符(以*分割右替换左)
+FlowRule 接受参数,过滤器 base|16 ，base|37 ,exculde|io 进制，排除字符
+DateRule 接受参数 年yy y ,月mm M,日 dd ,周期 WW，用逗号分隔，第一位为参数长度
  '''
 
 from abc import ABCMeta , abstractmethod
@@ -18,11 +18,11 @@ class RuleAnallysisError(Exception):
 
 class RuleBase(metaclass=ABCMeta):
     def __init__(self,txt:str):
-        '''把客户设置的参数转换对应的校验条件'''
-        # print("RuleBase 初始化")
+        '''把客户设置的参数转换对应的校验条件，用逗号拆分各规则条件保存在args列表中，
+        如有过滤器则放入kwargs字典中。        
+        '''
         self.original_args =txt
-        '''解析字符串''' 
-        args = [i for i in txt.split(",") if len(i) >0]
+        args = [i for i in txt.split(",") if len(i) >0] #按逗号拆分
         self.length =args[0] 
         self.args = []
         self.kwargs = {}
@@ -32,11 +32,12 @@ class RuleBase(metaclass=ABCMeta):
         else:
             raise RuleAnallysisError("参数无长度信息")
         #如有有其他字典参数加入
-        for arg in args[1:] :
-            if "|" in  arg:
-                k,v = arg.split("|")
+        for arg in args[1:] : 
+            if "|" in  arg:   #按|拆分，生成过滤器
+                k , v = arg.split("|")
                 self.kwargs[k] = v
-            self.args.append(arg)
+            else:    
+                self.args.append(arg) #把剩余的参数存入
  
     @abstractmethod
     def check(self, txt:str) -> (bool,str):
@@ -44,12 +45,13 @@ class RuleBase(metaclass=ABCMeta):
         pass
 
 class FixRule(RuleBase):
-    ''' 识别固定字符 '''
+    ''' 识别固定字符，过滤器del删除字符，过滤器replace替换字符用*隔开 '''
     def check(self, input:str ) -> (bool,str) :
         if "?" in  self.args:
-            self.__input__ = input          
+            self.__input = input          
             return self.reCheck #返回可调用的函数
-        if len(self.args[0]) != self.length:
+        # print(f"input:{input} args :{self.args} ")    
+        if len(self.args) != 0 and len(self.args[0]) != self.length:
             # print(self.args, self.length)
             raise RuleAnallysisError("固定字符长度不对")
 
@@ -63,9 +65,9 @@ class FixRule(RuleBase):
         if "del" in self.kwargs:
             fixed = fixed.replace(self.kwargs["del"],"")
         if "replace" in self.kwargs:
-            fixed = fixed.replace(self.kwargs["replace"].split("-"))
-        # print("fixed txt:",fixed,self.__input__)
-        if fixed == self.__input__:
+            fixed = fixed.replace(self.kwargs["replace"].split("*"))
+        # print("fixed txt:",fixed,self.__input)
+        if fixed == self.__input:
             return True,""
         else:
             return False,"无法匹配条码"
@@ -74,15 +76,16 @@ class RegRule(RuleBase):
     '''高级用户使用,规则错误会导致永远返回错误'''
     def check(self,txt:str):
         import re
-        #re规则中除长度相关的信息外,全部都是匹配规则
-        result =re.search(self.original_args[self.length:],txt)
+        #re规则中除长度相关的信息外(+1避开逗号),全部都是匹配规则
+        # print(self.original_args,txt)
+        result =re.search(r""+self.original_args[self.length+1:],txt)
         if result is None:
             return False,"正则无法匹配"
         return True,""
         
 class DateRule(RuleBase):
     def check(self,txt:str) -> (bool,str):
-        if self.length != len(self.args[0]):
+        if self.length != len("".join(self.args)):
             raise RuleAnallysisError("时间参数的长度不对")
         if len(txt) != self.length:
             raise ValueError("校验字符长度错误")
@@ -90,65 +93,87 @@ class DateRule(RuleBase):
         now = time.localtime(time.time())
         year =now.tm_year
         month = now.tm_mon
-        weakday = now.tm_yday//7
+        weekday = now.tm_yday//7
         tmp = txt
-        setup ={}
-        for i in self.args[0]:
-            if i not in "Yymdw":
-                raise RuleAnallysisError("时间参数的类别不对")
-            setup[i] = setup.setdefault(i,0) +1
-        # print(setup)
-        if  "y" in setup and setup["y"] > 0:
-            n = setup["y"]
-            if tmp[:n].isnumeric():
+
+        for arg in self.args:       
+            if  arg not in  ("y","Y","mm","M","dd","ddd","WW"):
+                raise RuleAnallysisError("时间参数的类别不对")  
+
+            n = len(arg)
+            if arg == "y":
+                if tmp[:n].isnumeric():
+                    result = int(tmp[:n] ) - year%(10**n)
+                else:
+                    raise ValueError("年份参数错误")
+                # print(result)
+                if abs(result) > 1 and abs(10 - result)>1:
+                    return False,"年份错误"
+                tmp = tmp[n:] 
+                continue         
+
+            if arg == "Y":
+                if tmp[n].isnumeric():
+                        result = int(tmp[n]) - year%1000
+                else:
+                    result = ord(tmp[n].lower()) -87 - year%100
+                if abs(result) > 1:
+                    return False,"年份错误" 
+                tmp = tmp[n:] 
+                continue
+
+            if arg == "mm":
                 result = int(tmp[:n] ) - year%(10**n)
-            else:
-                raise ValueError("年份参数错误")
-            # print(result)
-            if abs(result) > 1 and abs(10 - result)>1:
-                return False,"年份错误"
-            tmp =tmp[ setup["y"]:]
-        if "Y" in setup and setup["Y"] == 1:
-            if tmp[0].isnumeric():
-                result = int(tmp[0]) - year%1000
-            else:
-                result = ord(tmp[0].lower()) -87 - year%100
-            if abs(result) > 1:
-                return False,"年份错误"
-            tmp = tmp[1:]
-        if "w" in setup and setup['w'] ==2 :
-            result = week - int(tmp[:2])
-            if result > 3 or  result < -3:
-                return False,"周期超过3周"
-        if "m" in setup and setup["m"] >0:
-            n = setup["m"]
-            result = int(tmp[:n] ) - year%(10**n)
-            if result > 1 or  result < -1:
-                return False,"月份错误"
-            tmp =tmp[ setup["m"]:]
-        if  "M" in setup and setup["M"] == 1:
-            if tmp[0].isnumeric():
-                result = int(tmp[0]) - year%1000
-            else:
-                result = ord(tmp[0].lower()) -87 - year%100
-            if result > 1 or  result < -1:
-                return False,"月份错误"
-            tmp = tmp[1:]
-        if "d" in setup and setup["d"] == 3 :
-            result = now.tm_yday - int(tmp[:3])
-            if result > 30 or  result < -30:
-                return False,"天数错误"
-        if "d" in setup and setup["d"] ==2:
-            result = now.tm_mday -int(tmp[:2])
-            if result > 30 or  result < -30:
-                return False,"天数错误"
-        if "d" in setup and setup["d"] == 1:
-            if tmp[0].isnumeric():
-                result = int(tmp[0]) - now.tm_mday
-            else:
-                result = ord(tmp[0].lower()) -87 - now.tm_mday
-            if result > 30 or  result < -30:
-                return False,"天数错误"
+                if result > 1 or  result < -1:
+                    return False,"月份错误"
+                tmp = tmp[n:] 
+                continue
+
+            if arg == "M":                 
+                if tmp[n].isnumeric():
+                    result = int(tmp[n]) - year%1000
+                else:
+                    result = ord(tmp[n].lower()) -87 - year%100
+                if result > 1 or  result < -1:
+                    return False,"月份错误"
+                tmp = tmp[n:] 
+                continue
+
+            if arg == "d":
+                if tmp[n].isnumeric():
+                    result = int(tmp[n]) - now.tm_mday
+                else:
+                    result = ord(tmp[n].lower()) -87 - now.tm_mday
+                if result > 30 or  result < -30:
+                    return False,"天数错误"
+                tmp = tmp[n:] 
+                continue
+
+            if arg == "dd":
+                if not tmp[n].isnumeric():
+                    raise ValueError("dd格式必须为两位数字")
+                result = now.tm_mday -int(tmp[:n])
+                if result > 30 or  result < -30:
+                    return False,"天数错误"
+                tmp = tmp[n:] 
+                continue
+
+            if arg == "ddd":
+                result = now.tm_yday - int(tmp[:n])
+                if result > 30 or  result < -30:
+                    return False,"天数错误"
+                tmp = tmp[n:] 
+                continue
+
+            if arg == "WW":
+                if not tmp[:n].isnumeric():
+                    raise ValueError("年份参数错误")
+                result = weekday - int(tmp[:2])
+                if result > 3 or  result < -3:
+                    return False,"周期超过3周"
+                tmp = tmp[n:] 
+                continue
+      
         return True,""
 
 class FlowRule(RuleBase):
@@ -158,7 +183,6 @@ class FlowRule(RuleBase):
 
     def check(self, txt:str) ->(bool,str):
         self.rule =""
-
         if "base" not in self.kwargs:
             self.rule =self.number + self.ascii_uppercase
         else:
@@ -168,7 +192,7 @@ class FlowRule(RuleBase):
             if tmp <0:
                 tmp = -tmp
 
-            if self.kwargs["base"] > 10 and self.kwargs["base"] < 37:               
+            if tmp > 10 and tmp < 37:               
                 self.rule =self.number + self.ascii_uppercase[:tmp-10] 
         #移除需要筛选的字符
         if "exculde"  in self.kwargs:
@@ -180,7 +204,6 @@ class FlowRule(RuleBase):
                 return False,"流水号错误"  
         return True,""
             
-
 class Policy:
     def __init__(self,name:str,policy_src:str):
         self.name = name 
@@ -193,6 +216,7 @@ class Policy:
             if item == "norepeat" or item.strip() == "":
                 self.repeatFlag =False
                 continue
+
             if len(item.split(":")) < 2 :
                 raise RuleAnallysisError("没有足够的参数,必须用:分割规则和参数")
             if item.split(":")[0] not in self._rules:
@@ -201,12 +225,11 @@ class Policy:
             if len(args) == 0:
                 raise RuleAnallysisError("没有足够的参数")
             #在全局对象中找到对应的类,然后传入参数创建对象加入列表
+            # print(f"rule:{rule} ;args:{args}")
             self.rules.append(globals()[rule](args))
         # print("rules:",self.rules)
     
     def check(self,txt:str) -> (bool,str):
-        # print(self.rules[0])
-        # print("rules:",self.rules[1].length)
         self.length = sum( i.length for i in self.rules)
         # print("length:",self.length)
         if len(txt) != self.length:
@@ -225,13 +248,13 @@ class Policy:
                 return result
 
             tmp = tmp[ rule.length: ]
-        if self.repeatFlag:
-            return True ,""
-        else:
+        if not self.repeatFlag:   #需要增加对重复的判定,在外部设置
             if self.log is None:
                 self.log = Log()
             return self.log.repeat_check(txt)
-        #需要增加对重复的判定,在外部设置
+            
+        return True ,""
+
 
     def add_fix_txt(self,fix:str):
         #把pn加入未加载FixRule未输入的内容中
@@ -247,17 +270,15 @@ class Checker:
         self.policys =[]
         self.model = None
         self.sucess = None
+        self.cfg = None
         if self.model and "customer" not in model  and "pn" not in model :
-            raise Exception("字典参数model必须有custom和pn key的")       
+            raise Exception("字典参数model必须有custom和pn key的")     
+          
         #从配置类中获取相应的
-        if config:
-            self.cfg = config 
-        else :
-            from utils import Config
-            slef.cfg = Config()
-
+        self.cfg = Config()
         # print("checker confg",self.cfg)
         for name,policy_src in self.cfg.policy_cfg.items():
+            # print(f"policy:{name} src:{policy_src}")
             self.policys.append(Policy(name,policy_src))
 
     def setMode(self,model:dict):
@@ -268,8 +289,10 @@ class Checker:
         '''校验输入的内容 '''
         # print("policys:",self.policys)
         if self.model:
-                if self.model["customer"] in self.policys:
-                    return self.checkOne(txt, self.model["customer"] , self.model)
+                for  policy in self.policys:
+                    if self.model["customer"] == policy.name:
+                        return self.checkOne(txt, policy , self.model)
+                # print("model:",self.model["customer"])
                 return False,"!程序错误,条码规则有误"
 
         for policy in self.policys:
@@ -279,6 +302,7 @@ class Checker:
                 # return  False,f"条码规则config资源不存在{policy.name} key"
 
             for module, tmp  in self.cfg.code_data[policy.name].items():
+                # print("module,tmp",module,tmp)
                 for name , pns in tmp.items():          
                     for pn in pns:    
                         # print("customer module name pn:",policy.name ,module ,name ,pn)         
@@ -291,6 +315,7 @@ class Checker:
         # print("policy ,model",policy,model)
         policy.add_fix_txt(model["pn"])
         result = policy.check(txt)
+        # print(f"正在使用{policy.name}的规格进行验证:{txt}")
         #只有在规则定义无重复且之前条码验证ok时才验证重复性
         if result[0]:
             self.sucess = model

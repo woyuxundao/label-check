@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'l:\label_check\ui\edit_item.ui'
+# Form implementation generated from reading ui file 'h:\hl\label_check\ui\edit_item.ui'
 #
-# Created by: PyQt5 UI code generator 5.14.1
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -10,13 +10,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_policy_dialog(object):
-    def setupUi(self, policy_dialog):
-        policy_dialog.setObjectName("policy_dialog")
-        policy_dialog.resize(822, 618)
-        self.verticalLayout = QtWidgets.QVBoxLayout(policy_dialog)
+class Ui_item_dialog(object):
+    def setupUi(self, item_dialog):
+        item_dialog.setObjectName("item_dialog")
+        item_dialog.resize(822, 618)
+        self.verticalLayout = QtWidgets.QVBoxLayout(item_dialog)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.widget = QtWidgets.QWidget(policy_dialog)
+        self.widget = QtWidgets.QWidget(item_dialog)
         self.widget.setMinimumSize(QtCore.QSize(800, 560))
         self.widget.setStyleSheet("")
         self.widget.setObjectName("widget")
@@ -161,7 +161,7 @@ class Ui_policy_dialog(object):
         self.horizontalLayout_2.addWidget(self.apply_btn)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         self.verticalLayout.addWidget(self.widget)
-        self.buttonBox = QtWidgets.QDialogButtonBox(policy_dialog)
+        self.buttonBox = QtWidgets.QDialogButtonBox(item_dialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
@@ -171,43 +171,33 @@ class Ui_policy_dialog(object):
         self.label_3.setBuddy(self.name_cb)
         self.label_4.setBuddy(self.pn_cb)
 
-        self.retranslateUi(policy_dialog)
-        self.buttonBox.accepted.connect(policy_dialog.accept)
-        self.buttonBox.rejected.connect(policy_dialog.reject)
-        self.apply_btn.clicked.connect(policy_dialog.apply_items)
-        self.policy_cb.currentTextChanged['QString'].connect(policy_dialog.change_policy)
-        self.module_cb.currentTextChanged['QString'].connect(policy_dialog.change_module)
-        self.name_cb.currentIndexChanged['QString'].connect(policy_dialog.change_name)
-        self.module_add_btn.clicked.connect(policy_dialog.add_module)
-        self.module_rm_btn.clicked.connect(policy_dialog.remove_module)
-        self.name_add_btn.clicked.connect(policy_dialog.add_name)
-        self.name_rm_btn.clicked.connect(policy_dialog.remove_name)
-        self.pn_add_btn.clicked.connect(policy_dialog.add_pn)
-        self.pn_rm_btn.clicked.connect(policy_dialog.remove_pn)
-        QtCore.QMetaObject.connectSlotsByName(policy_dialog)
+        self.retranslateUi(item_dialog)
+        self.buttonBox.accepted.connect(item_dialog.accept)
+        self.buttonBox.rejected.connect(item_dialog.reject)
+        self.apply_btn.clicked.connect(item_dialog.apply_items)
+        self.policy_cb.currentTextChanged['QString'].connect(item_dialog.change_policy)
+        self.module_cb.currentTextChanged['QString'].connect(item_dialog.change_module)
+        self.name_cb.currentIndexChanged['QString'].connect(item_dialog.change_name)
+        self.module_add_btn.clicked.connect(item_dialog.add_module)
+        self.module_rm_btn.clicked.connect(item_dialog.remove_module)
+        self.name_add_btn.clicked.connect(item_dialog.add_name)
+        self.name_rm_btn.clicked.connect(item_dialog.remove_name)
+        self.pn_add_btn.clicked.connect(item_dialog.add_pn)
+        self.pn_rm_btn.clicked.connect(item_dialog.remove_pn)
+        QtCore.QMetaObject.connectSlotsByName(item_dialog)
 
-    def retranslateUi(self, policy_dialog):
+    def retranslateUi(self, item_dialog):
         _translate = QtCore.QCoreApplication.translate
-        policy_dialog.setWindowTitle(_translate("policy_dialog", "编辑条目"))
-        self.label.setText(_translate("policy_dialog", "规则名称:"))
-        self.label_2.setText(_translate("policy_dialog", "机型:"))
-        self.label_3.setText(_translate("policy_dialog", "品名:"))
-        self.label_4.setText(_translate("policy_dialog", "料号:"))
+        item_dialog.setWindowTitle(_translate("item_dialog", "编辑条目"))
+        self.label.setText(_translate("item_dialog", "规则名称:"))
+        self.label_2.setText(_translate("item_dialog", "机型:"))
+        self.label_3.setText(_translate("item_dialog", "品名:"))
+        self.label_4.setText(_translate("item_dialog", "料号:"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("policy_dialog", "机型"))
+        item.setText(_translate("item_dialog", "机型"))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("policy_dialog", "品名"))
+        item.setText(_translate("item_dialog", "品名"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("policy_dialog", "料号"))
-        self.apply_btn.setText(_translate("policy_dialog", "应用"))
+        item.setText(_translate("item_dialog", "料号"))
+        self.apply_btn.setText(_translate("item_dialog", "应用"))
 import img_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    policy_dialog = QtWidgets.QDialog()
-    ui = Ui_policy_dialog()
-    ui.setupUi(policy_dialog)
-    policy_dialog.show()
-    sys.exit(app.exec_())

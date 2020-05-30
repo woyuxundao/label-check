@@ -4,20 +4,18 @@ __author__ ='huliang'
 '''对条码规则进行编辑的窗口控件'''
 
 from PyQt5.QtWidgets import QDialog ,QTableWidgetItem
-from ui.policy_manager import Ui_Dialog
+from ui import Ui_policy_manager
 from edit_policy_ui import EditPolicy
 from utils import Config
 
 
-class PolicyManager(QDialog,Ui_Dialog):
+class PolicyManager(QDialog,Ui_policy_manager):
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)
         #把已设置的信息的函数暂时存储,待最后决定是否保存
         self.todo_list ={"add":[],"remove":[]}#元素按照(函数,"")格式保存
-        
-    def setConfig(self,config):
-        self.cfg = config   #配置类 
+        self.cfg = Config()   #配置类 
         self.setup()       
 
     def setup(self):      
@@ -46,7 +44,6 @@ class PolicyManager(QDialog,Ui_Dialog):
     def new_policy(self):
         # print("创建一个新的窗口创建规则")      
         policy_w = EditPolicy() 
-        policy_w.setConfig(self.cfg)
         # print(self.policy_w.__dict__)
         policy_w.exec()#QDialog类可行的模态窗口
         self.setup()
@@ -59,7 +56,6 @@ class PolicyManager(QDialog,Ui_Dialog):
         txt = self.tableWidget.item(row,0).text()
         # print("row txt",row,txt)
         policy_w = EditPolicy() 
-        policy_w.setConfig(self.cfg)
         policy_w.setup(txt)
         policy_w.exec()
         self.setup()

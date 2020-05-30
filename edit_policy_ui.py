@@ -3,7 +3,7 @@
 __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QDialog , QTableWidgetItem ,QComboBox
-from ui.edit_policy import  Ui_policy_dialog
+from ui import  Ui_policy_dialog
 from utils import Config
 from checker import Policy
 
@@ -13,9 +13,7 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         self.setupUi(self)      
         self.todo_list =[] 
         self.model = None
-
-    def setConfig(self,config):
-        self.cfg =config   #配置类 
+        self.cfg =Config()   #配置类 
         self.setup()
 
     def setup(self,model=None):
@@ -82,7 +80,6 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             result_style ="color:red;"
         self.result_t.setText( result_text)
         self.result_t.setStyleSheet(result_style)
-
 
 
 if __name__ == '__main__':
