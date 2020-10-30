@@ -9,8 +9,6 @@ from typing import Iterable, Tuple ,List
 from .base import path_fixed ,pre_read
 import settings as cf
 
-
-
 class AccountManager():
     """建立帐号管理的模块"""   
     def __init__(self,*args, **kwargs):

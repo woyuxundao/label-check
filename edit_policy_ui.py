@@ -16,7 +16,7 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         self.cfg =Config()   #配置类 
         self.setup()
 
-    def setup(self,model=None):
+    def setup(self,model=None,rule=None):
         # print("model",model)
         self.model = model
         if model is None:
@@ -24,18 +24,37 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         else:
             title ="编辑规则"
             self.lineEdit.setText(model)
+            self.lineEdit.setEnabled(False)
+            #把规则解析并放置在条目内
+            rules = rule.split(";")
+            # print(f"rules:{rules}")
+            for row , i in enumerate(rules) :
+                rule_name,j = i.split(":")   
+                # print(f"j:{j}")
+                index=j.index(',')
+                length = j[:index]
+                content = j[index+1:]
+                # print("条码规则解析：",rule_name,length,content)
+                #增加条码，并输入规则
+                self.add_item()
+                # print("tablewidget",self.tableWidget.item(0,0))
+                self.tableWidget.item(row,0).setText(length)
+                self.tableWidget.cellWidget(row,1).setCurrentText(rule_name)
+                self.tableWidget.item(row,2).setText(content)
         self.setWindowTitle(title)
         self.tableWidget.setHorizontalHeaderLabels(("长度",'规则','规则内容'))
 
-    def add_item(self,k):
+        
+
+    def add_item(self):
         now_rows = self.tableWidget.rowCount() 
         self.tableWidget.setRowCount(now_rows + 1)
         cb = QComboBox()
         cb.addItems(self.cfg.policy_cate )#限定的几种规则
+        self.tableWidget.setItem(now_rows,0,QTableWidgetItem())
         self.tableWidget.setCellWidget(now_rows,1,cb)
-        
-        
-
+        self.tableWidget.setItem(now_rows,2,QTableWidgetItem())
+     
     def remove_item(self,n):
         '''删除条目'''
         row = self.tableWidget.currentRow() 
@@ -80,7 +99,6 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             result_style ="color:red;"
         self.result_t.setText( result_text)
         self.result_t.setStyleSheet(result_style)
-
 
 if __name__ == '__main__':
     import sys

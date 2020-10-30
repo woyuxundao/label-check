@@ -53,10 +53,11 @@ class PolicyManager(QDialog,Ui_policy_manager):
         row = self.tableWidget.currentRow()
         if row < 0:
             return
-        txt = self.tableWidget.item(row,0).text()
-        # print("row txt",row,txt)
+        txt = self.tableWidget.item(row,0).text()#规则名称
+        rule = self.tableWidget.item(row,1).text()#规则内容
+        print("规则,内容:",txt,rule)
         policy_w = EditPolicy() 
-        policy_w.setup(txt)
+        policy_w.setup(txt,rule)
         policy_w.exec()
         self.setup()
 

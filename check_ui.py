@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 __author__ ='huliang'
 __email__ = "huliang168168@sina.com"
-__vesion__ ="v0.1a"
+__vesion__ ="v0.2a"
 ''' '''
 from typing import List
 from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget,QSystemTrayIcon,QAction,QMenu,QWidget,QApplication
@@ -24,8 +24,8 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         self.setup()
         self.input_ln.setFocus()
 
-    def setAccount(self,user:str):
-        self.user = user
+    def setAccount(self,user:str=None):
+        self.user = user if user else "吕健涛"
 
     def setup(self):
         self.user = None
@@ -149,11 +149,13 @@ class CheckUI(Ui_MainWindow,QMainWindow):
             #只有combobox有数据时才进行单独的验证
             if len(customer) > 0 and len(pn) >0:           
                 self.chk.setMode({"customer":customer,"module":module,"name":name,"pn":pn})
-
+        else:
+           self.chk.setMode(None) 
+           
         result_b ,result_t =self.chk.check(codebar)
         # print(result_b,result_t)
-        if result_b:
-            self.set_combo_text(self.chk.sucess.values())
+        if result_b:          
+            self.set_combo_text(self.chk.model)#校验成功会设置model
             style= "color:blue;"
             result_t  ="PASS"
         else:

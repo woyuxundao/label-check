@@ -19,12 +19,13 @@ class Config:
         self.__class__.code_data = pre_read(self.fixcode_cfg_f)
 
     def remove_policy(self, name:str) -> bool:
-        if name in self.policy_cfg:
-            del  self.__class__.policy_cfg[name]
-            #把配置信息policy_cfg写上文件中                     
-            return True
+        if name not in self.policy_cfg:  
+            return False     
+        #把配置信息policy_cfg写上文件中                                 
+        del  self.__class__.policy_cfg[name]
         self.update_policy() 
-        return False
+        return True
+            
 
     def edit_policy(self,policy_name ,content, model:bool=True) -> bool:
         '''model 为True是修改否则新增'''
