@@ -14,7 +14,7 @@ class AccountManager():
     def __init__(self,*args, **kwargs):
         self.ACCOUNT = {}
         self.filename =os.path.join( cf.PROJECT_DIR ,cf.ACCOUNT_CFG) 
-        if path_fixed(filename):
+        if path_fixed(self.filename):
             self.ACCOUNT = pre_read(self.filename)
 
     def add_account(self,arg:Tuple[str]) -> bool:

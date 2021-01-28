@@ -8,14 +8,14 @@ from PyQt5.QtCore import pyqtSignal ,Qt
 class MyLineEdit(QLineEdit):
     signal_keyboarded = pyqtSignal(str)
     def keyPressEvent(self,evt):
-        super().keyPressEvent(evt)
         if evt.key()== Qt.Key_Enter or evt.key()== Qt.Key_Return :
             if len(self.text()) > 0:
                 self.signal_keyboarded.emit(self.text())
                 self.blockSignals(True)
                 self.setText("")
                 self.blockSignals(False)
-    
+        else:
+            super().keyPressEvent(evt)
 
 if __name__ == '__main__':
     import sys

@@ -13,18 +13,20 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         self.setupUi(self)      
         self.todo_list =[] 
         self.model = None
+        self.__rule_src = None
         self.cfg =Config()   #配置类 
         self.setup()
 
     def setup(self,model=None,rule=None):
         # print("model",model)
         self.model = model
+        self.__rule_src = rule
         if model is None:
             title= "新建规则"          
         else:
             title ="编辑规则"
             self.lineEdit.setText(model)
-            self.lineEdit.setEnabled(False)
+            self.lineEdit.setEnabled(False) #编辑模式防止被修改规则名称
             #把规则解析并放置在条目内
             rules = rule.split(";")
             # print(f"rules:{rules}")
@@ -83,11 +85,11 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         try:
             p = Policy(policy_name,';'.join(policy))
         except Exception as e:
-            print("异常",e)
+            print("规则创建异常",e)
             apply_flag = False
         
         #检查配置是否存在数据,新增模式相同的规则名不可添加,编辑模式都可
-        add_result = self.cfg.edit_policy(policy_name,";".join(policy),bool(self.model))
+        add_result = self.cfg.edit_policy(policy_name,self.__rule_src,";".join(policy),bool(self.model))
 
         #校验成功
         if apply_flag and add_result:

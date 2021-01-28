@@ -24,9 +24,16 @@ class PolicyManager(QDialog,Ui_policy_manager):
             return
         self.tableWidget.setRowCount(policy_len)
         #按对应的表格填入数据
-        for kv ,row in zip(self.cfg.policy_cfg.items(),range(policy_len)):
-            self.tableWidget.setItem(row , 0, QTableWidgetItem(kv[0]))
-            self.tableWidget.setItem(row , 1, QTableWidgetItem(kv[1]))
+        row = 0
+        for policy_name , rule_list in self.cfg.policy_cfg.items():
+            for rule in rule_list:
+                if len(rule)==0 :continue #空内容跳过
+                self.tableWidget.setItem(row , 0, QTableWidgetItem(policy_name))
+                self.tableWidget.setItem(row , 1, QTableWidgetItem(rule))  
+                row += 1              
+        # for kv ,row in zip(self.cfg.policy_cfg.items(),range(policy_len)):
+        #     self.tableWidget.setItem(row , 0, QTableWidgetItem(kv[0]))
+        #     self.tableWidget.setItem(row , 1, QTableWidgetItem(kv[1]))
 
     def todo(self):
         """待办事项"""

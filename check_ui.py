@@ -8,7 +8,7 @@ from typing import List
 from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget,QSystemTrayIcon,QAction,QMenu,QWidget,QApplication
 from PyQt5.QtGui import QIcon , QColor 
 from PyQt5.QtCore import Qt , QDateTime
-from ui.check import Ui_MainWindow
+from ui import Ui_MainWindow
 from policy_manager_ui import PolicyManager
 from edit_item_ui import EditItem
 from checker import Checker
@@ -155,7 +155,8 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         result_b ,result_t =self.chk.check(codebar)
         # print(result_b,result_t)
         if result_b:          
-            self.set_combo_text(self.chk.model)#校验成功会设置model
+            # print("检查的model：",self.chk.model)
+            self.set_combo_text(self.chk.model.values())#校验成功会设置model
             style= "color:blue;"
             result_t  ="PASS"
         else:
@@ -195,6 +196,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         '''设置QComboBox当前文本，args为所用对应的数值迭代器'''
         for combo ,txt in zip(self.combo_list,args):
             combo.setCurrentText(txt)
+
 
 if  __name__ == '__main__':
     import sys

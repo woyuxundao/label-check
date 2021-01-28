@@ -1,9 +1,8 @@
-__pycache__
+/__pycache__/*
 .vscode
 build
 dist
 log
-*.ui
 *.pyc
 *.json
 *.db
@@ -11,5 +10,6 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 autologin.cfg
-/log
+log/*
 *.csv
+/resource/*

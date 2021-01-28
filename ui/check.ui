@@ -36,6 +36,9 @@
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,6">
     <property name="spacing">
      <number>10</number>
@@ -293,7 +296,7 @@ color: rgb(170, 0, 255);</string>
        <item row="7" column="0">
         <widget class="QLabel" name="label_7">
          <property name="styleSheet">
-          <string notr="true">font: 13pt &quot;思源黑体 CN Regular&quot;;</string>
+          <string notr="true">font: 13pt &quot;楷体&quot;;</string>
          </property>
          <property name="text">
           <string>扫描输入条码:</string>
@@ -382,9 +385,9 @@ color: rgb(75, 0, 225);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">border:1px solid gray;
-border-radius:18px;
+border-radius:14px;
 background-color: rgba(255, 255, 255, 0);
-font: 11pt &quot;Arial&quot;;</string>
+font: 10pt &quot;Arial&quot;;</string>
          </property>
          <property name="text">
           <string/>
@@ -505,6 +508,7 @@ font: 11pt &quot;Arial&quot;;</string>
             <pointsize>10</pointsize>
             <weight>75</weight>
             <bold>true</bold>
+            <underline>false</underline>
            </font>
           </property>
           <property name="background">
@@ -513,6 +517,15 @@ font: 11pt &quot;Arial&quot;;</string>
             <green>180</green>
             <blue>180</blue>
            </color>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
           </property>
          </column>
          <column>
@@ -631,17 +644,12 @@ font: 11pt &quot;Arial&quot;;</string>
     <addaction name="ab_qt_ac"/>
     <addaction name="ab_version_ac"/>
     <addaction name="ab_author_ac"/>
-   </widget>
-   <widget class="QMenu" name="menu_5">
-    <property name="title">
-     <string>帮助</string>
-    </property>
+    <addaction name="action_2"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
    <addaction name="menu_3"/>
    <addaction name="menu_4"/>
-   <addaction name="menu_5"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="sizeGripEnabled">
@@ -701,6 +709,11 @@ font: 11pt &quot;Arial&quot;;</string>
   <action name="logout_ac">
    <property name="text">
     <string>注销</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>帮助</string>
    </property>
   </action>
  </widget>

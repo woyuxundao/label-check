@@ -18,20 +18,30 @@ class Config:
         self.__class__.policy_cfg = pre_read(self.plicy_cfg_f) #预读数据到类变量
         self.__class__.code_data = pre_read(self.fixcode_cfg_f)
 
-    def remove_policy(self, name:str) -> bool:
+    def remove_policy(self, name:Tuple[str,str]) -> bool:
         if name not in self.policy_cfg:  
             return False     
         #把配置信息policy_cfg写上文件中                                 
-        del  self.__class__.policy_cfg[name]
+        tmp_list=  self.__class__.policy_cfg[name[0]]
+        if name not in tmp_list:
+            return False
+        else:
+            self.__class__.policy_cfg[name[0]].remove(name[1])
         self.update_policy() 
         return True
             
-
-    def edit_policy(self,policy_name ,content, model:bool=True) -> bool:
-        '''model 为True是修改否则新增'''
-        if not model and  policy_name in self.policy_cfg:
-                return False
-        self.policy_cfg[policy_name] = content
+    def edit_policy(self,policy_name ,old_rule,new_rule, model:bool=True) -> bool:
+        '''model 为True是修改规则,否则是新增规则'''
+        if not self.policy_cfg.get(policy_name):
+            self.policy_cfg[policy_name] = []
+        else:
+            if old_rule in self.policy_cfg[policy_name]:
+                if model:
+                    self.policy_cfg[policy_name] = new_rule
+                else:    
+                    return False
+            else:
+                self.policy_cfg[policy_name].append(new_rule)
         self.update_policy()        
         return True
 

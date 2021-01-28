@@ -110,7 +110,7 @@ padding-left:20px;</string>
         <item>
          <widget class="QPushButton" name="pushButton_2">
           <property name="text">
-           <string>删除条码</string>
+           <string>删除条目</string>
           </property>
          </widget>
         </item>
