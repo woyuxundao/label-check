@@ -4,82 +4,62 @@ __author__ ='huliang'
 '''帐号管理类 '''
 import os
 import json
+import copy
 from typing import Iterable, Tuple ,List
-from .base import path_fixed ,pre_read
+from .base import pre_read
 import settings  as cf
 
+class ConfigProperty:
+    '''属性数据描述符'''
+    def __init__(self,filename:str,):
+        self.filename = filename
+        self.content= pre_read(self.filename)
+
+    def __get__(self,instance,cls):
+        return copy.deepcopy(self.content)
+
+    def __set__(self,instance,value:dict):
+        if self.content == value:
+            return
+        self.content=value
+        self.save()
+    
+    def save(self):
+        with open(self.filename,"w",encoding="utf-8") as f:
+            json.dump(self.content, f,ensure_ascii=False, indent=2)        
+
+
+plicy_cfg_f = os.path.join( cf.PROJECT_DIR ,cf.POLICY_CFG) 
+fixcode_cfg_f =os.path.join( cf.PROJECT_DIR,cf.FIXCODE_CFG)
+
 class Config:
-    policy_cfg ={}
-    code_data = {}
+    """用于管理规则和料号的类"""
+    policy_cfg =ConfigProperty(plicy_cfg_f)
+    code_data = ConfigProperty(fixcode_cfg_f)
     policy_cate=("FixRule","RegRule","DateRule","FlowRule")  
-    def __init__(self):   
-        self.plicy_cfg_f = os.path.join( cf.PROJECT_DIR ,cf.POLICY_CFG) 
-        self.fixcode_cfg_f =os.path.join( cf.PROJECT_DIR,cf.FIXCODE_CFG) 
-        self.__class__.policy_cfg = pre_read(self.plicy_cfg_f) #预读数据到类变量
-        self.__class__.code_data = pre_read(self.fixcode_cfg_f)
-
-    def remove_policy(self, name:Tuple[str,str]) -> bool:
-        if name not in self.policy_cfg:  
-            return False     
-        #把配置信息policy_cfg写上文件中                                 
-        tmp_list=  self.__class__.policy_cfg[name[0]]
-        if name not in tmp_list:
-            return False
-        else:
-            self.__class__.policy_cfg[name[0]].remove(name[1])
-        self.update_policy() 
-        return True
-            
-    def edit_policy(self,policy_name ,old_rule,new_rule, model:bool=True) -> bool:
-        '''model 为True是修改规则,否则是新增规则'''
-        if not self.policy_cfg.get(policy_name):
-            self.policy_cfg[policy_name] = []
-        else:
-            if old_rule in self.policy_cfg[policy_name]:
-                if model:
-                    self.policy_cfg[policy_name] = new_rule
-                else:    
-                    return False
-            else:
-                self.policy_cfg[policy_name].append(new_rule)
-        self.update_policy()        
-        return True
-
+ 
     def remove_item(self,tmp:Tuple[str]) -> bool:
-        cls = self.__class__
-        # print("rm",tmp)
         if len(tmp) == 2 :
-            cls.code_data[tmp[0]].pop(tmp[1])
+            self.code_data[tmp[0]].pop(tmp[1])
         if len(tmp) == 3:
-            cls.code_data[tmp[0]][tmp[1]].pop(tmp[2])
+            self.code_data[tmp[0]][tmp[1]].pop(tmp[2])
         if len(tmp) == 4 and tmp[3] in  cls.code_data[tmp[0]][tmp[1]][tmp[2]]:
-            cls.code_data[tmp[0]][tmp[1]][tmp[2]].remove(tmp[3])    
-        self.update_fixcode()
+            self.code_data[tmp[0]][tmp[1]][tmp[2]].remove(tmp[3])    
 
     def add_item(self,ll:List[str]):
-        cls = self.__class__
         '''tmp为 规则/机型/品名/料号组成的字符串列表'''
-        # print("ll列表内容:",ll)
         policy,module,name,pn = ll
-        # print("xxx",ll)
-        tmp = cls.code_data.setdefault(policy,{}) #避免in操作报错
-        # print("tmp",tmp)
+        tmp = self.code_data.setdefault(policy,{}) #避免in操作报错
         if module not in tmp:
             tmp.update({module:{name:[pn]}})
         if name not in tmp[module]:
             tmp[module].update({name:[pn]})
         if pn not in tmp[module][name]:
             tmp[module][name].append(pn)
-        self.update_fixcode()
-        # print(cls.code_data)
 
-    def update_policy(self): 
-        with open(self.plicy_cfg_f,"w",encoding="utf-8") as f:
-            json.dump(self.policy_cfg, f,ensure_ascii=False, indent=2)
-    
-    def update_fixcode(self):
-        with open(self.fixcode_cfg_f,"w",encoding="utf-8") as f:
-            json.dump(self.code_data, f,ensure_ascii=False, indent=2)
+
+import sys
+sys.modules[__name__] = Config()
 
 if __name__ == "__main__":
     pass

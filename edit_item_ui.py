@@ -4,13 +4,13 @@ __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QDialog , QTableWidgetItem ,QComboBox
 from ui import  Ui_item_dialog
-from utils import Config
+from utils import config
 
 class EditItem(QDialog,Ui_item_dialog):
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self) 
-        self.cfg = Config()  
+        self.cfg = config
         self.setup()   
          
     def setup(self):
@@ -26,9 +26,14 @@ class EditItem(QDialog,Ui_item_dialog):
         if not self.cfg.code_data.get(policy_name):
             return     
         self._policy_tmp =self.cfg.code_data[policy_name]
-        self.module_cb.clear()
-        self.name_cb.clear()
-        self.pn_cb.clear()
+
+        for cb in (self.module_cb,self.name_cb,self.pn_cb):
+            cb.blockSignals(True)
+            cb.clear()
+            cb.blockSignals(False)
+        # self.module_cb.clear()
+        # self.name_cb.clear()
+        # self.pn_cb.clear()
         if len(policy_name) >0:
             self.module_cb.addItems(self._policy_tmp.keys())
     

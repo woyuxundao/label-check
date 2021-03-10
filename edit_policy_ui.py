@@ -3,18 +3,21 @@
 __author__ ='huliang'
 ''' '''
 from PyQt5.QtWidgets import QDialog , QTableWidgetItem ,QComboBox
+from PyQt5.QtCore import pyqtSignal
 from ui import  Ui_policy_dialog
-from utils import Config
+from utils import config
 from checker import Policy
 
 class EditPolicy(QDialog,Ui_policy_dialog):
+    data_signal =pyqtSignal(str,str,str,bool)
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)      
         self.todo_list =[] 
         self.model = None
         self.__rule_src = None
-        self.cfg =Config()   #配置类 
+        self.cfg =config   #配置类 
+        self.flag = True   #未提交标识
         self.setup()
 
     def setup(self,model=None,rule=None):
@@ -27,7 +30,6 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             title ="编辑规则"
             self.lineEdit.setText(model)
             self.lineEdit.setEnabled(False) #编辑模式防止被修改规则名称
-            #把规则解析并放置在条目内
             rules = rule.split(";")
             # print(f"rules:{rules}")
             for row , i in enumerate(rules) :
@@ -46,8 +48,6 @@ class EditPolicy(QDialog,Ui_policy_dialog):
         self.setWindowTitle(title)
         self.tableWidget.setHorizontalHeaderLabels(("长度",'规则','规则内容'))
 
-        
-
     def add_item(self):
         now_rows = self.tableWidget.rowCount() 
         self.tableWidget.setRowCount(now_rows + 1)
@@ -60,13 +60,12 @@ class EditPolicy(QDialog,Ui_policy_dialog):
     def remove_item(self,n):
         '''删除条目'''
         row = self.tableWidget.currentRow() 
-        # print(self.tableWidget.cellWidget(0,1).currentText())
-        # print("当前选择删除选定的行:",row)
         if row >= 0:   
             self.tableWidget.removeRow(row)
 
     def accept(self):
-        self.apply_items()
+        if self.flag:
+            self.apply_items()
         self.close()
     
     def apply_items(self):
@@ -89,12 +88,13 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             apply_flag = False
         
         #检查配置是否存在数据,新增模式相同的规则名不可添加,编辑模式都可
-        add_result = self.cfg.edit_policy(policy_name,self.__rule_src,";".join(policy),bool(self.model))
+        self.data_signal.emit(policy_name,self.__rule_src,";".join(policy),bool(self.model))
 
         #校验成功
-        if apply_flag and add_result:
+        if apply_flag and  self.flag:
             result_text ="校验结果:成功"
             result_style ="color:blue;"     
+            self.flag = False
         #校验失败
         else:
             result_text ="校验结果:失败"

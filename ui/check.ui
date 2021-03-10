@@ -61,7 +61,7 @@
        <bool>true</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">border-image:rgb(194, 255, 194)</string>
       </property>
       <layout class="QFormLayout" name="formLayout">
        <property name="topMargin">
@@ -399,7 +399,7 @@ font: 10pt &quot;Arial&quot;;</string>
           <bool>true</bool>
          </property>
          <property name="placeholderText">
-          <string>在此处显示扫描区接受数据的验证结果</string>
+          <string>在此处显示已扫描后的验证结果</string>
          </property>
          <property name="clearButtonEnabled">
           <bool>false</bool>
@@ -644,7 +644,7 @@ font: 10pt &quot;Arial&quot;;</string>
     <addaction name="ab_qt_ac"/>
     <addaction name="ab_version_ac"/>
     <addaction name="ab_author_ac"/>
-    <addaction name="action_2"/>
+    <addaction name="help_ac"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -711,7 +711,7 @@ font: 10pt &quot;Arial&quot;;</string>
     <string>注销</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="help_ac">
    <property name="text">
     <string>帮助</string>
    </property>

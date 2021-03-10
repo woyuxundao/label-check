@@ -273,8 +273,8 @@ QPushButton:hover {
    <slot>new_policy()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>369</x>
-     <y>481</y>
+     <x>448</x>
+     <y>506</y>
     </hint>
     <hint type="destinationlabel">
      <x>-43</x>
@@ -289,8 +289,8 @@ QPushButton:hover {
    <slot>edit_policy()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>539</x>
-     <y>483</y>
+     <x>580</x>
+     <y>506</y>
     </hint>
     <hint type="destinationlabel">
      <x>476</x>
@@ -305,12 +305,28 @@ QPushButton:hover {
    <slot>del_policy()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>663</x>
-     <y>482</y>
+     <x>712</x>
+     <y>506</y>
     </hint>
     <hint type="destinationlabel">
      <x>833</x>
      <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>Dialog</receiver>
+   <slot>edit_policy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>152</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>762</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>

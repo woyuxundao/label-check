@@ -5,14 +5,14 @@ __email__ = "huliang168168@sina.com"
 __vesion__ ="v0.2a"
 ''' '''
 from typing import List
-from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget,QSystemTrayIcon,QAction,QMenu,QWidget,QApplication
-from PyQt5.QtGui import QIcon , QColor 
-from PyQt5.QtCore import Qt , QDateTime
+from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget,QSystemTrayIcon,QAction,QMenu,QWidget,QApplication ,QLabel
+from PyQt5.QtGui import QIcon , QColor
+from PyQt5.QtCore import Qt , QDateTime 
 from ui import Ui_MainWindow
 from policy_manager_ui import PolicyManager
 from edit_item_ui import EditItem
 from checker import Checker
-from utils import Log ,Config
+from utils import Log ,config
 
 class CheckUI(Ui_MainWindow,QMainWindow):
     def __init__(self,parent=None,*arg,**kwargs):
@@ -25,14 +25,14 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         self.input_ln.setFocus()
 
     def setAccount(self,user:str=None):
-        self.user = user if user else "吕健涛"
+        self.user = user 
 
     def setup(self):
-        self.user = None
+        self.user = "QA"
         #加载日志管理器
         self.log = Log()
-        #加载设置器
-        self.cfg = Config()
+        #加载设置器c
+        self.cfg = config
         
         #设置菜单栏的Action,绑定方法
         self.exit_ac.triggered.connect(self.close)
@@ -42,6 +42,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         self.ab_author_ac.triggered.connect(self.showAuthor)
         self.ab_version_ac.triggered.connect(self.showVersion)
         self.logout_ac.triggered.connect(self.logout)
+        self.help_ac.triggered.connect(self.showHelp)
 
         #设置tabelwidgets表头的尺寸#
         self.tableWidget.setColumnWidth(0,140)
@@ -52,7 +53,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         
         #在客户栏中初始化列表
         self.combo_list=(self.custom_cb,self.module_cb,self.name_cb,self.pn_cb)
-        self.custom_cb.addItems(self.cfg.code_data.keys())
+        self.custom_cb.addItems(self.cfg.policy_cfg.keys())
         
         #设置系统托盘
         self.tray = QSystemTrayIcon(self)
@@ -81,11 +82,18 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         QMessageBox.about(self,"关于作者",about_text)
 
     def showVersion(self):
-        QMessageBox.about(self,"验证系统版本",f"当前验证系统版本:{__vesion__}")       
+        QMessageBox.about(self,"验证系统版本",f"当前验证系统版本:{__vesion__}<br>胡亮的git库:https://gitee.com/hl_lance/label_check")       
 
     def showPolicyManager(self):
         e =PolicyManager()
         e.exec()
+
+    def showHelp(self):
+        """帮助信息显示"""
+        from help_ui import My_label
+        self.l = My_label("帮助信息")
+        self.l.init()
+        self.l.show()
     
     def showItemManager(self):
         e = EditItem()
@@ -109,7 +117,8 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         if combo not in self.combo_list:
             return
         index = self.combo_list.index(combo)
-        for cb in self.combo_list[index+1:]:
+        #把剩余的选择控件清空并暂时屏蔽信号
+        for cb in self.combo_list[index+1:]: 
             cb.blockSignals(True)
             cb.clear()
             cb.blockSignals(False)
@@ -117,8 +126,10 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         if index > 0:
             for cb in self.combo_list[:index]:
                 tmp = tmp[cb.currentText()]
-        if index + 2 < len(self.combo_list):
-            self.combo_list[index+1].addItems(tmp[txt].keys()) 
+        if not tmp.get(txt): #防止None引起的程序崩溃
+            return                 
+        if index + 2 < len(self.combo_list): 
+            self.combo_list[index+1].addItems( tmp[txt].keys()) 
         else:  
             # print("cblist",index+1,len(self.combo_list),tmp[txt])
             self.combo_list[index+1].addItems(tmp[txt])   
@@ -141,7 +152,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         now = QDateTime.currentDateTime().toString("yyyy-MM-dd HH-mm-ss")
         #设置条码校验器
         if not self.chk:
-            self.chk = Checker(self.cfg)
+            self.chk = Checker()
 
         # print("radio 状态",self.auto_radio.isChecked)
         if not self.auto_radio.isChecked():
@@ -156,11 +167,12 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         # print(result_b,result_t)
         if result_b:          
             # print("检查的model：",self.chk.model)
-            self.set_combo_text(self.chk.model.values())#校验成功会设置model
+            if not self.chk.model:
+                self.set_combo_text(self.chk.model.values())#校验成功会设置model
             style= "color:blue;"
             result_t  ="PASS"
         else:
-            style= "background-color:#FF3030;"
+            style= "background-color:#FF3034;"
         style += 'font: 11pt "楷体";padding-left:20px;border:none;border-radius:25px;'
         self.result_txt.setStyleSheet(style)
         self.result_txt.setText(result_t+":\n"+codebar)  

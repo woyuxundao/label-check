@@ -10,7 +10,7 @@ DateRule 接受参数 年yy y ,月mm M,日 dd ,周期 WW，用逗号分隔，第
  '''
 
 from abc import ABCMeta , abstractmethod
-from utils import Config ,Log
+from utils import config ,Log
 
 class RuleAnallysisError(Exception):
     """规则解析错误"""
@@ -266,7 +266,7 @@ class Policy:
 
 class Checker:
     """参数model设置时按要求匹配验证,否则扫描全部"""
-    def __init__(self,config):
+    def __init__(self):
         self.policys =[]
         self.model = None
         self.cfg = config       #从配置类中获取相应的数据
@@ -321,7 +321,6 @@ class Checker:
 
     def check_one(self,txt,policy,model:dict) -> (bool,str):
         #按照给定的具体信息匹配验证
-        # print(f"model : {model['pn']}")
         if not len(model) == 0:
             policy.set_fixcode(model["pn"])
         result = policy.check(txt)
@@ -341,12 +340,11 @@ class Checker:
         else:
             self.codes.add(code)
             return True,""
-        
-
 
 if __name__ == '__main__':
     b ={"customer":"ECS","pn":"123-456-78"}
-    c = Checker(b)
+    c = Checker()
+    c.setMode(b)
     print(c.check("12345678"))
     # f =FixRule("4,ssss")
     # print(f.length)

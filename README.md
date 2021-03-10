@@ -16,7 +16,7 @@ pyqt5 ui文件构建界面,部分widget使用qss样式,检验条码规则可以�
 #### 使用说明
 
 1.  python main.py  #也可以直接运行python check_ui.py
-2.ui文件的使用必须用pip install pyqt5-tools
+2.  ui文件的使用必须用pip install pyqt5-tools,在Python<version>\Lib\site-packages\\qt5_applications\Qt\bin中designer
 
 #### 参与贡献
 

@@ -9,6 +9,9 @@
     <file>resource/background.png</file>
   </qresource>
   <qresource prefix="fg">
+    <file>resource/help_Page1.png</file>
+    <file>resource/help_Page2.png</file>
+    <file>resource/help_Page3.png</file>
     <file>resource/qrcode-bg.jpg</file>
   </qresource>
 </RCC>
