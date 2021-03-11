@@ -9,7 +9,7 @@ from utils import config
 from checker import Policy
 
 class EditPolicy(QDialog,Ui_policy_dialog):
-    data_signal =pyqtSignal(str,str,str,bool)
+    data_signal =pyqtSignal(str,str,str,bool) #自定义信号用于两个widgets数据传递 
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)      

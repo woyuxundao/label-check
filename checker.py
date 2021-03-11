@@ -288,12 +288,12 @@ class Checker:
             if "customer" in model  and "pn"  in model:
                 self.model = model
             else:
-                print("字典参数model必须有custom和pn key的，否则设为None") 
-  
+                #print("字典参数model必须有custom和pn key的，否则设为None") 
+                pass
         
     def check(self,txt:str) -> (bool,str):
         '''校验输入的内容,如果未设置具体的model就遍历检查 '''
-        #print("检查器的model",self.model)
+        ##print("检查器的model",self.model)
         if self.model:
             result = None
             for policy in self.policys:
@@ -302,22 +302,22 @@ class Checker:
                     if result[0]:
                         if not policy.repeatFlag :
                             #只有在规则定义无重复且之前条码验证ok时才验证重复性
-                            print("重复检查工作有进行")
+                            #print("重复检查工作有进行")
                             return self.checkRepeat(txt)
                         return result
             else:
                 return result
 
         for policy in self.policys:
-            print(f"正在匹配的规则{policy.name}")
+            #print(f"正在匹配的规则{policy.name}")
             if not self.cfg.code_data.get(policy.name):
-                #print("此规则为没有对应的机型，进行下一个规则检查")
+                ##print("此规则为没有对应的机型，进行下一个规则检查")
                 result = self.check_one(txt,policy,{})     
                 if result[0]:
                     return reuslt           
                 continue
             for module, tmp  in self.cfg.code_data[policy.name].items():
-                # print("module,tmp",module,tmp)
+                # #print("module,tmp",module,tmp)
                 for name , pns in tmp.items():    
                     for pn in pns: 
                         model = {"customer":policy.name,"module":module,"name":name,"pn":pn}
@@ -326,7 +326,7 @@ class Checker:
                             self.model = model
                             if not policy.repeatFlag :
                             #只有在规则定义无重复且之前条码验证ok时才验证重复性
-                                print("重复检查工作有进行")
+                                #print("重复检查工作有进行")
                                 return self.checkRepeat(txt)
                             return result
         return False,"没有匹配的规则"

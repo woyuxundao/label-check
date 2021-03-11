@@ -20,7 +20,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         # self.setAttribute( Qt.WA_SetWindowIcon )
         self.setAttribute(Qt.WA_StyleSheet)
         self.setupUi(self)
-        self.chk =None
+        self.chk =Checker()
         self.setup()
         self.input_ln.setFocus()
 
@@ -86,6 +86,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
 
     def showPolicyManager(self):
         e =PolicyManager()
+        e.data_update_signal.connect(self.reset_checker)
         e.exec()
 
     def showHelp(self):
@@ -146,14 +147,14 @@ class CheckUI(Ui_MainWindow,QMainWindow):
     def name_change(self,txt):
         # print('品名变更:%s'%txt)  
         self.changeComboBox(self.name_cb,txt)   
+
+    def reset_checker(self):
+        #设置条码校验器,每次校验时使用最新的规则
+        self.chk = Checker()
         
     def input_scan(self, codebar:str):
         # print("扫描的数据:%s"%codebar)
         now = QDateTime.currentDateTime().toString("yyyy-MM-dd HH-mm-ss")
-        #设置条码校验器
-        if not self.chk:
-            self.chk = Checker()
-
         # print("radio 状态",self.auto_radio.isChecked)
         if not self.auto_radio.isChecked():
             customer ,module ,name ,pn = (i.currentText() for i in self.combo_list)

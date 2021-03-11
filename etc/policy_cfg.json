@@ -13,7 +13,8 @@
   ],
   "LC": [
     "RegRule:2,CS|A;DateRule:4,Y,M,dd;FixRule:1,S;FlowRule:1,;FlowRule:4,base|37 ,exculde|io;FixRule:1,A;FlowRule:2,",
-    "RegRule:2,CS;FixRule:3,Y,M,dd;FixRule:1,S;FlowRule:1,"
+    "RegRule:2,CS;FixRule:3,Y,M,dd;FixRule:1,S;FlowRule:1,",
+    "FixRule:16,?"
   ],
   "XZD": [
     "FixRule:10,？,del|.;FixRule:3,y,WW;FlowRule:5,base|16;FixRule:4,H400"

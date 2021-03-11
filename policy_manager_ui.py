@@ -4,11 +4,13 @@ __author__ ='huliang'
 '''对条码规则进行编辑的窗口控件'''
 
 from PyQt5.QtWidgets import QDialog ,QTableWidgetItem
+from PyQt5.QtCore import pyqtSignal
 from ui import Ui_policy_manager
 from edit_policy_ui import EditPolicy
 from utils import config
 
 class PolicyManager(QDialog,Ui_policy_manager):
+    data_update_signal = pyqtSignal()  #向父级窗口通报改更新数据了
     def __init__(self,parent=None,*arg,**kwargs):
         super().__init__(parent,*arg,**kwargs)
         self.setupUi(self)
@@ -58,6 +60,7 @@ class PolicyManager(QDialog,Ui_policy_manager):
             rule = self.tableWidget.item(row,1).text()     
             policys.setdefault(policy_name,[]).append(rule)
         self.cfg.policy_cfg =policys #更新规则信息
+        self.data_update_signal.emit()
         super().accept()
 
     def new_policy(self):
