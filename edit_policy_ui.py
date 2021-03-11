@@ -35,7 +35,10 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             for row , i in enumerate(rules) :
                 rule_name,j = i.split(":")   
                 # print(f"j:{j}")
-                index=j.index(',')
+                if "," in j:
+                    index=j.index(',')
+                else:
+                    continue
                 length = j[:index]
                 content = j[index+1:]
                 # print("条码规则解析：",rule_name,length,content)

@@ -6,13 +6,14 @@
     "FixRule:14,?"
   ],
   "BLD": [
-    "FixRule:2,8S;FixRule:10,?;DateRule:3,y,M,d;FlowRule:4,"
+    "FixRule:2,8S;FixRule:10,?;FixRule:4,00SN;DateRule:3,y,M,d;FlowRule:4,"
   ],
   "HUNGARY": [
     "FixRule:10,？,del|.;FixRule:3,y,WW;FlowRule:5,base|16;FixRule:4,H400"
   ],
   "LC": [
-    "RegRule:2,CS|A;FixRule:3,Y,M,dd;FixRule:1,S;FlowRule:1,;FlowRule:4,base|37 ,exculde|io;FixRule:3,A;FlowRule:2,"
+    "RegRule:2,CS|A;DateRule:4,Y,M,dd;FixRule:1,S;FlowRule:1,;FlowRule:4,base|37 ,exculde|io;FixRule:1,A;FlowRule:2,",
+    "RegRule:2,CS;FixRule:3,Y,M,dd;FixRule:1,S;FlowRule:1,"
   ],
   "XZD": [
     "FixRule:10,？,del|.;FixRule:3,y,WW;FlowRule:5,base|16;FixRule:4,H400"

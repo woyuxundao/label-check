@@ -82,7 +82,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         QMessageBox.about(self,"关于作者",about_text)
 
     def showVersion(self):
-        QMessageBox.about(self,"验证系统版本",f"当前验证系统版本:{__vesion__}<br>胡亮的git库:https://gitee.com/hl_lance/label_check")       
+        QMessageBox.about(self,"验证系统版本",f"当前验证系统版本:{__vesion__}<br>胡亮的git库:gitee.com/hl_lance/label_check")       
 
     def showPolicyManager(self):
         e =PolicyManager()
@@ -167,7 +167,7 @@ class CheckUI(Ui_MainWindow,QMainWindow):
         # print(result_b,result_t)
         if result_b:          
             # print("检查的model：",self.chk.model)
-            if not self.chk.model:
+            if self.chk.model:
                 self.set_combo_text(self.chk.model.values())#校验成功会设置model
             style= "color:blue;"
             result_t  ="PASS"
