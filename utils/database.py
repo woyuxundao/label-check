@@ -38,5 +38,8 @@ class DB_Manage:
 
     def select(self,col:str) ->bool:
         """查询记录，如果存在则返回False"""
+        select_sql = f"select * from {table_name} where xx = {col}"
+        self.CUSTOMER[custom].execute(create_sql)
+        self.CUSTOMER[custom].commit()        
         pass
 

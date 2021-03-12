@@ -16,10 +16,14 @@ class ConfigProperty:
         self.content= pre_read(self.filename)
 
     def __get__(self,instance,cls):
+        '''返回数据的拷贝，避免底层数据被错误修改'''
+        if not instance.flag:
+            return self.content
         return copy.deepcopy(self.content)
 
     def __set__(self,instance,value:dict):
-        if self.content == value:
+        if self.content is value:
+            self.save()
             return
         self.content=value
         self.save()
@@ -37,25 +41,39 @@ class Config:
     policy_cfg =ConfigProperty(plicy_cfg_f)
     code_data = ConfigProperty(fixcode_cfg_f)
     policy_cate=("FixRule","RegRule","DateRule","FlowRule")  
+
+    def __init__(self):
+        self.flag = False #用于改变数据描述符的处理状态
  
     def remove_item(self,tmp:Tuple[str]) -> bool:
+        self.flag = True
+        content = self.code_data
+        self.flag =False
         if len(tmp) == 2 :
-            self.code_data[tmp[0]].pop(tmp[1])
+            content[tmp[0]].pop(tmp[1])
         if len(tmp) == 3:
-            self.code_data[tmp[0]][tmp[1]].pop(tmp[2])
-        if len(tmp) == 4 and tmp[3] in  cls.code_data[tmp[0]][tmp[1]][tmp[2]]:
-            self.code_data[tmp[0]][tmp[1]][tmp[2]].remove(tmp[3])    
+            content[tmp[0]][tmp[1]].pop(tmp[2])
+        if len(tmp) == 4 and tmp[3] in  content[tmp[0]][tmp[1]][tmp[2]]:
+            content[tmp[0]][tmp[1]][tmp[2]].remove(tmp[3])    
+        self.code_data = content #启用附着用进行自动把数据写入硬盘
+        return True
 
-    def add_item(self,ll:List[str]):
+    def add_item(self,ll:List[str]) ->bool:
         '''tmp为 规则/机型/品名/料号组成的字符串列表'''
         policy,module,name,pn = ll
-        tmp = self.code_data.setdefault(policy,{}) #避免in操作报错
+        self.flag = True
+        content = self.code_data
+        self.flag =False
+        tmp = content.setdefault(policy,{}) #避免in操作报错
+        # print(f"tmp:{tmp}")
         if module not in tmp:
             tmp.update({module:{name:[pn]}})
         if name not in tmp[module]:
             tmp[module].update({name:[pn]})
         if pn not in tmp[module][name]:
             tmp[module][name].append(pn)
+        self.code_data = content #启用附着用进行自动把数据写入硬盘
+        return True
 
 
 import sys

@@ -98,7 +98,7 @@ class DateRule(RuleBase):
         now =datetime.datetime.now()
         self.year = now.year
         self.month =now.month
-        self.weeks = now.isocalendar().week #一年的第几周
+        self.weeks = now.isocalendar()[1] #一年的第几周
         self.day = now.day                  #一月的第几天
         self.day365=now.timetuple().tm_yday #一年的第几天
         tmp = txt
@@ -227,7 +227,7 @@ class Policy:
         for item in policy_src.split(";"): 
             if "FlowRule" in item: #如果规则中有流水号则说明条码不可重复
                 self.repeatFlag =False
-                print("设置重复检查的标志",self.repeatFlag)
+                #print("设置重复检查的标志",self.repeatFlag)
 
             if len(item.split(":")) < 2 :
                 raise RuleAnallysisError("没有足够的参数,必须用:分割规则和参数")
