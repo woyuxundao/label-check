@@ -15,6 +15,9 @@ from utils import config ,Log
 class RuleAnallysisError(Exception):pass #规则解析错误
 class RuleTypeError(TypeError):pass #规则参数类型错误
 
+SUCESS = 3
+PARTIY_SUCESS = 1
+FAIL = 0
 class RuleBase(metaclass=ABCMeta):
     def __init__(self,txt:str):
         '''把客户设置的参数转换对应的校验条件，用逗号拆分各规则条件保存在args列表中，
@@ -59,9 +62,9 @@ class FixRule(RuleBase):
             print(self.args, self.length)
             raise RuleAnallysisError("固定字符长度不对"+self.args[0])
         if self.args[0] == input:
-            return True,""
+            return SUCESS,""
         else:
-            return False,"固定字符不匹配"
+            return FAIL,"固定字符不匹配"
     
     def fixcode_check(self) -> (bool,str):
         """用于没有提前输入的固定字符的验证"""
@@ -71,9 +74,9 @@ class FixRule(RuleBase):
             self.fixcode = self.fixcode.replace(self.kwargs["replace"].split("*"))
         #print(f"fixed txt:{self.fixcode},原始字符串：{self.__input}")
         if self.fixcode == self.__input:
-            return True,""
+            return SUCESS,""
         else:
-            return False,"无法匹配条码"
+            return FAIL,"无法匹配条码"
             
 class RegRule(RuleBase):
     '''高级用户使用,规则错误会导致永远返回错误'''
@@ -84,8 +87,8 @@ class RegRule(RuleBase):
         # print(self.original_args,txt)
         result =re.search(r""+self.original_args[self.length+1:],txt)
         if result is None:
-            return False,"正则无法匹配"
-        return True,""
+            return FAIL,"正则无法匹配"
+        return SUCESS,""
         
 class DateRule(RuleBase):
     def check(self,txt:str) -> (bool,str):
@@ -106,26 +109,31 @@ class DateRule(RuleBase):
         args_cate = ("y","Y","mm","M","d","dd","ddd","WW")
         #判定参数是否超出限定范围
         if len(set(args_cate) | set(self.args) )> len(args_cate):
-            raise RuleAnallysisError("时间参数的类别不对")         
+            raise RuleAnallysisError("时间参数的类别不对") 
+        res_content =[]#用于放置校验的结果,只放非错误的结果        
         for arg in self.args:
             n = len(arg) #参数的长度
             func = getattr(self,arg)
-            ok,message = func(tmp[:n])
-            if not ok:
-                return ok,message
+            result =func(tmp[:n])
+            if result[0] == FAIL:
+                return result
+            if result[0] == PARTIY_SUCESS:
+                res_content.append(result)
             tmp = tmp[n:]  
-
-        return True,""
+        if len(res_content) == 0:
+            return SUCESS,""
+        else:
+            return res_content[0]
 
     def y(self,txt:str) ->(bool,str):
         if txt.isnumeric():
             result = int(txt) - self.year%10
         else:
-            return False,"年份参数错误"
+            return FAIL,"年份参数错误"
         # print(result)
         if abs(result) > 1 and abs(10 - result)>1:
-            return False,"年份错误"
-        return True,""
+            return PARTIY_SUCESS,"条码年份超过一年" 
+        return SUCESS,""
 
     def Y(self,txt:str) ->(bool,str):
         if txt.isnumeric():
@@ -134,14 +142,14 @@ class DateRule(RuleBase):
             result = ord(txt.lower()) -88 - self.year%100  #如果是字母则转换成两位数的年份，再比较
             # print(f"result:{result} {txt} {self.year}")
         if abs(result) > 1:
-            return False,"年份错误" 
-        return True,""
+            return PARTIY_SUCESS,"条码年份超过一年" 
+        return SUCESS,""
 
     def mm(self,txt:str) ->(bool,str):
         result = int(txt) - self.month
         if result > 1 or  result < -1:
-            return False,"月份错误"
-        return True,""
+            return PARTIY_SUCESS,"条码月份超过一个月" 
+        return SUCESS,""
 
     def M(self,txt:str) ->(bool,str):
         if txt.isnumeric():
@@ -149,8 +157,8 @@ class DateRule(RuleBase):
         else:
             result = ord(txt.lower()) -87 - self.month
         if result > 1 or  result < -1:
-            return False,"月份错误"
-        return True,""
+            return PARTIY_SUCESS,"条码月份超过一个月" 
+        return SUCESS,""
         
     def d(self,txt:str) ->(bool,str):
         if txt.isnumeric():
@@ -158,34 +166,33 @@ class DateRule(RuleBase):
         else:
             result = ord(txt.lower()) -87 - self.day
         if result > 30 or  result < -30:
-            return False,"天数错误"
-        return True,""
+            return PARTIY_SUCESS,"条码天数超过一个月" 
+        return SUCESS,""
         
     def dd(self,txt:str) ->(bool,str):
         if not txt.isnumeric():
             return False,"dd格式必须为两位数字"
         result = self.day -int(txt)
         if result > 30 or  result < -30:
-            return False,"天数错误"
-        return True,""
+            return PARTIY_SUCESS,"条码天数超过一个月" 
+        return SUCESS,""
         
     def ddd(self,txt:str) ->(bool,str):
         if not txt.isnumeric():
             return False,"ddd格式必须为三位位数字"  
         result = self.day365 - int(txt)
         if result > 30 or  result < -30:
-            return False,"条码超过30天"
-        return True,""
+            return PARTIY_SUCESS,"条码超过30天"
+        return SUCESS,""
         
     def WW(self,txt:str) ->(bool,str):
         if not txt.isnumeric():
             return False,"年份参数错误"
         result = self.weeks - int(txt)
         if abs(result) > 3 :
-            return False,"条码超过3周"
-        return True,""
+            return PARTIY_SUCESS,"条码超过3周"
+        return SUCESS,""
         
-
 class FlowRule(RuleBase):
     # ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"
     ascii_uppercase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -212,9 +219,9 @@ class FlowRule(RuleBase):
 
         for  x in txt:
             if  x not in self.rule:
-                print("...."+self.rule)
-                return False,"流水号错误"  
-        return True,""
+                #print("...."+self.rule)
+                return FAIL,"流水号错误"  
+        return SUCESS,""
             
 class Policy:
     def __init__(self,name:str,policy_src:str):
@@ -227,12 +234,12 @@ class Policy:
         for item in policy_src.split(";"): 
             if "FlowRule" in item: #如果规则中有流水号则说明条码不可重复
                 self.repeatFlag =False
-                #print("设置重复检查的标志",self.repeatFlag)
+                ##print("设置重复检查的标志",self.repeatFlag)
 
             if len(item.split(":")) < 2 :
                 raise RuleAnallysisError("没有足够的参数,必须用:分割规则和参数")
             if item.split(":")[0] not in self._rules:
-                print(f"规则列表{self._rules}")
+                #print(f"规则列表{self._rules}")
                 raise RuleAnallysisError("找不到相应的规则")
             rule ,args = item.split(":")
             #print("rule args:",rule,args)
@@ -250,16 +257,22 @@ class Policy:
         if len(txt) != self.length:
             # print(f"条码:{txt},长度:{self.length}")
             return False,"条码长度不相符"
-        tmp = txt #临时变量        
+        tmp = txt #临时变量  
+        res_content =[] #存放非错的内容      
         for rule in self.rules:
             print(f"当前校验的rule：{rule.__class__.__name__}")
             rule.set_fixcode(self.fixcode)
             result = rule.check(tmp[:rule.length])    
-            print(f"result:{result}")
+            #print(f"result:{result}")
             tmp= tmp[rule.length:]
-            if result[0] is False:
-                return result 
-        return True,""
+            if result[0] == FAIL:
+                return result
+            if result[0] == PARTIY_SUCESS:
+                res_content.append(result)
+        if len(res_content) >0:
+            return res_content[0]    
+        else:
+            return SUCESS,""
 
     def set_fixcode(self,txt:str):
         #把pn加入未加载FixRule未输入的内容中
@@ -299,7 +312,7 @@ class Checker:
             for policy in self.policys:
                 if self.model["customer"] == policy.name :
                     result = self.check_one(txt, policy,self.model)
-                    if result[0]:
+                    if result[0] == SUCESS:
                         if not policy.repeatFlag :
                             #只有在规则定义无重复且之前条码验证ok时才验证重复性
                             #print("重复检查工作有进行")
@@ -313,23 +326,31 @@ class Checker:
             if not self.cfg.code_data.get(policy.name):
                 ##print("此规则为没有对应的机型，进行下一个规则检查")
                 result = self.check_one(txt,policy,{})     
-                if result[0]:
+                if result[0] == FAIL:
+                    continue
+                else:
                     return reuslt           
-                continue
+                
+            res_content = [] #存储一半正确的结果
             for module, tmp  in self.cfg.code_data[policy.name].items():
                 # #print("module,tmp",module,tmp)
                 for name , pns in tmp.items():    
                     for pn in pns: 
                         model = {"customer":policy.name,"module":module,"name":name,"pn":pn}
                         result = self.check_one(txt,policy,model)  
-                        if result[0]:
+                        if result[0] == SUCESS:
                             self.model = model
                             if not policy.repeatFlag :
                             #只有在规则定义无重复且之前条码验证ok时才验证重复性
                                 #print("重复检查工作有进行")
                                 return self.checkRepeat(txt)
                             return result
-        return False,"没有匹配的规则"
+                        if result[0] == PARTIY_SUCESS:
+                            res_content.append(result)
+            if len(res_content)>0:
+                #print("result_content:",res_content)
+                return res_content[0]
+        return FAIL,"没有匹配的规则"
 
     def check_one(self,txt,policy,model:dict) -> (bool,str):
         #按照给定的具体信息匹配验证
@@ -341,10 +362,10 @@ class Checker:
     def checkRepeat(self,code:str) ->(bool,str):
         '''获取资料中所有已存在的条码,检查此条码是否有重复'''
         if code in self.codes:
-            return False,"条码重复"
+            return FAIL,"条码重复"
         else:
             self.codes.add(code)
-            return True,""
+            return SUCESS,""
 
 if __name__ == '__main__':
     b ={"customer":"ECS","pn":"123-456-78"}
