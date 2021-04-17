@@ -21,6 +21,8 @@ class RuleBase(metaclass=ABCMeta):
         如有过滤器则放入kwargs字典中。        
         '''
         self.original_args =txt
+        if len(txt) == 0:
+            raise RuleTypeError("参数不可为空") 
         args = [i for i in txt.split(",") if len(i) >0] #按逗号拆分
         self.length =args[0] 
         self.args = []
@@ -32,13 +34,15 @@ class RuleBase(metaclass=ABCMeta):
         else:
             raise RuleTypeError("参数无长度信息")
         #如有有其他字典参数加入
+        tmp_args = [] #临时列表方便后续替换
         for arg in args[1:] : 
             if "|" in  arg:   #按|拆分，生成过滤器
                 k , v = arg.split("|")
                 self.kwargs[k] = v
             else:    
-                self.args.append(arg) #把剩余的参数存入
- 
+                tmp_args.append(arg) #把剩余的参数存入
+        self.args =tmp_args
+
     @abstractmethod
     def check(self, txt:str) -> (bool,str):
         """条码规则校验"""
@@ -53,22 +57,29 @@ class FixRule(RuleBase):
         print(f"fixrule检查字段：{input} ")
         if "?" in  self.args:
             self.__input = input   
-            return self.fixcode_check() #返回可调用的函数
-        print(f"input:{input} args :{self.args} ")    
-        if len(self.args) != 0 and len(self.args[0]) != self.length:
-            print(self.args, self.length)
-            raise RuleAnallysisError("固定字符长度不对"+self.args[0])
-        if self.args[0] == input:
-            return True,""
+            return self.filter() #返回可调用的函数
         else:
-            return False,"固定字符不匹配"
-    
-    def fixcode_check(self) -> (bool,str):
-        """用于没有提前输入的固定字符的验证"""
-        if "del" in self.kwargs:
-            self.fixcode = self.fixcode.replace(self.kwargs["del"],"")
-        if "replace" in self.kwargs:
-            self.fixcode = self.fixcode.replace(self.kwargs["replace"].split("*"))
+            print(f"input:{input} args :{self.args} ")    
+            if len(self.args) != 0 and len(input) != self.length:
+                print(self.args, self.length)
+                raise RuleAnallysisError("固定字符长度不对"+self.args[0])
+            if self.args[0] == input:
+                return True,""
+            else:
+                return False,"固定字符不匹配"
+        
+    def filter(self) -> (bool,str):
+        """使用过滤参数,用于没有提前输入的固定字符的验证"""
+        if len(self.fixcode) == 0:
+            raise RuleTypeError("没有设置固定字符")
+        for k ,v in self.kwargs.items():
+            if k == "del":
+                self.fixcode = self.fixcode.replace(v,"")   
+            elif k =="replace":
+                old , new = v.split("*")
+                self.fixcode = self.fixcode.replace(old,new)
+            else:
+                print("未定义过滤参数"+k)
         #print(f"fixed txt:{self.fixcode},原始字符串：{self.__input}")
         if self.fixcode == self.__input:
             return True,""
@@ -185,7 +196,6 @@ class DateRule(RuleBase):
             return False,"条码超过3周"
         return True,""
         
-
 class FlowRule(RuleBase):
     # ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"
     ascii_uppercase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -227,8 +237,7 @@ class Policy:
         for item in policy_src.split(";"): 
             if "FlowRule" in item: #如果规则中有流水号则说明条码不可重复
                 self.repeatFlag =False
-                #print("设置重复检查的标志",self.repeatFlag)
-
+                
             if len(item.split(":")) < 2 :
                 raise RuleAnallysisError("没有足够的参数,必须用:分割规则和参数")
             if item.split(":")[0] not in self._rules:
@@ -271,8 +280,7 @@ class Checker:
         self.policys =[]
         self.model = None
         self.cfg = config       #从配置类中获取相应的数据
-        #条码暂存容器验证重码
-        self.codes=set()
+        self.repeat_model = "memory"
         #print("checker confg",self.cfg)
         for name,policy_srcs in self.cfg.policy_cfg.items():
             # print(f"policy:{name} src:{policy_src}")
@@ -340,11 +348,17 @@ class Checker:
 
     def checkRepeat(self,code:str) ->(bool,str):
         '''获取资料中所有已存在的条码,检查此条码是否有重复'''
-        if code in self.codes:
-            return False,"条码重复"
-        else:
-            self.codes.add(code)
-            return True,""
+        if self.repeat_model == "memory":
+            if not hasattr(self,"codes"):
+                self.codes=set()#条码暂存容器验证重码
+            if code in self.codes:
+                return False,"条码重复"
+            else:
+                self.codes.add(code)
+                return True,""
+        else :
+            return False,"暂未实现条码重复检查"
+            pass
 
 if __name__ == '__main__':
     b ={"customer":"ECS","pn":"123-456-78"}
