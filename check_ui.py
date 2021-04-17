@@ -12,6 +12,7 @@ from ui import Ui_MainWindow
 from policy_manager_ui import PolicyManager
 from edit_item_ui import EditItem
 from checker import Checker
+import checker
 from utils import Log ,config
 
 class CheckUI(Ui_MainWindow,QMainWindow):
@@ -165,13 +166,17 @@ class CheckUI(Ui_MainWindow,QMainWindow):
            self.chk.setMode(None) 
            
         result_b ,result_t =self.chk.check(codebar)
-        # print(result_b,result_t)
-        if result_b:          
+        print("-------UI 校验结果-----",result_b,result_t)
+        if result_b == checker.SUCESS:          
             # print("检查的model：",self.chk.model)
             if self.chk.model:
                 self.set_combo_text(self.chk.model.values())#校验成功会设置model
             style= "color:blue;"
             result_t  ="PASS"
+        elif result_b == checker.PARTIY_SUCESS:          
+            if self.chk.model:
+                self.set_combo_text(self.chk.model.values())#校验成功会设置model
+            style= "background-color:#FF3034;"
         else:
             style= "background-color:#FF3034;"
         style += 'font: 11pt "楷体";padding-left:20px;border:none;border-radius:25px;'

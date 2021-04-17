@@ -27,7 +27,27 @@ def pre_read(filename):
                 return json.loads(f.read())
     return {}        
         
+class Const:
+    def __init__(self,x:int):
+        self.__value = x
 
+    def __setattr__(self,key,value) -> bool:
+        raise ValueError("const can not change")
+    
+    def __eq__(self,value):
+        return value == self.__value
+
+    def __and__(self,value):
+        return value & self.__value
+    
+    def __rand__(self,value):
+        return value & self.__value
+
+    def __or__(self,value):
+        return value | self.__value
+    
+    def __ror__(self,value):
+        return value | self.__value
         
 if __name__ == '__main__':
     l =Log()
