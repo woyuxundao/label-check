@@ -54,7 +54,7 @@ class FixRule(RuleBase):
     ''' 识别固定字符，过滤器del删除字符，过滤器replace替换字符用*隔开 '''
     def check(self, input:str ) -> (bool,str) :
         print(f"fixrule检查字段：{input} ")
-        if "?" in  self.args:
+        if "?" in  self.args or "？" in  self.args:
             self.__input = input   
             return self.fixcode_check() #返回可调用的函数
         print(f"input:{input} args :{self.args} ")    
@@ -171,7 +171,7 @@ class DateRule(RuleBase):
         
     def dd(self,txt:str) ->(bool,str):
         if not txt.isnumeric():
-            return False,"dd格式必须为两位数字"
+            return FAIL,"dd格式必须为两位数字"
         result = self.day -int(txt)
         if result > 30 or  result < -30:
             return PARTIY_SUCESS,"条码天数超过一个月" 
@@ -179,7 +179,7 @@ class DateRule(RuleBase):
         
     def ddd(self,txt:str) ->(bool,str):
         if not txt.isnumeric():
-            return False,"ddd格式必须为三位位数字"  
+            return FAIL,"ddd格式必须为三位位数字"  
         result = self.day365 - int(txt)
         if result > 30 or  result < -30:
             return PARTIY_SUCESS,"条码超过30天"
@@ -187,7 +187,7 @@ class DateRule(RuleBase):
         
     def WW(self,txt:str) ->(bool,str):
         if not txt.isnumeric():
-            return False,"年份参数错误"
+            return FAIL,"年份参数错误"
         result = self.weeks - int(txt)
         if abs(result) > 3 :
             return PARTIY_SUCESS,"条码超过3周"
@@ -234,7 +234,7 @@ class Policy:
         for item in policy_src.split(";"): 
             if "FlowRule" in item: #如果规则中有流水号则说明条码不可重复
                 self.repeatFlag =False
-                ##print("设置重复检查的标志",self.repeatFlag)
+                #print("设置重复检查的标志",self.repeatFlag)
 
             if len(item.split(":")) < 2 :
                 raise RuleAnallysisError("没有足够的参数,必须用:分割规则和参数")
@@ -251,12 +251,11 @@ class Policy:
         #print(f"现在的规格{self.rules}")
     
     def check(self,txt:str) -> (bool,str):
-        # result_list=[] #存储结果列表
         self.length = sum( i.length for i in self.rules)
         # print("length:", [i.length for i in self.rules])
         if len(txt) != self.length:
             # print(f"条码:{txt},长度:{self.length}")
-            return False,"条码长度不相符"
+            return FAIL,"条码长度不相符"
         tmp = txt #临时变量  
         res_content =[] #存放非错的内容      
         for rule in self.rules:
