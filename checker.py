@@ -62,7 +62,7 @@ class FixRule(RuleBase):
             self.__input = input   
             return self.fixcode_check() #返回可调用的函数
         print(f"input:{input} args :{self.args} ")    
-        if len(self.args) != 0 and len(self.args[0]) != self.length:
+        if len(self.args) != 0 and sum(len(i) for i in self.args) != self.length:
             print(self.args, self.length)
             raise RuleAnallysisError("固定字符长度不对"+self.args[0])
         if self.args[0] == input:
@@ -76,7 +76,7 @@ class FixRule(RuleBase):
             self.fixcode = self.fixcode.replace(self.kwargs["del"],"")
         if "replace" in self.kwargs:
             self.fixcode = self.fixcode.replace(self.kwargs["replace"].split("*"))
-        #print(f"fixed txt:{self.fixcode},原始字符串：{self.__input}")
+        print(f"fixed txt:{self.fixcode},原始字符串：{self.__input}")
         if self.fixcode == self.__input:
             return SUCESS,""
         else:
@@ -209,11 +209,11 @@ class FlowRule(RuleBase):
             self.rule = self.rule[:10]
         else:
             tmp =self.kwargs["base"]
-            # print(f"tmp:{tmp}")
+            print(f"tmp:{tmp}",type(tmp))
             if tmp.isdecimal():
                 tmp = int(tmp)
                 if 10< tmp < 37:               
-                    self.rule =self.rule[:(tmp-10)] 
+                    self.rule =self.rule[:tmp] 
                 else:
                     raise RuleTypeError("进制最多为36进制，实际为{tmp}")
         #移除需要筛选的字符
@@ -223,7 +223,7 @@ class FlowRule(RuleBase):
 
         for  x in txt:
             if  x not in self.rule:
-                #print("...."+self.rule)
+                print(f"....---x:{x},self.rule:{self.rule}")
                 return FAIL,"流水号错误"  
         return SUCESS,""
             

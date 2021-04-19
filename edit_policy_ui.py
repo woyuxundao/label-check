@@ -82,9 +82,9 @@ class EditPolicy(QDialog,Ui_policy_dialog):
             length = self.tableWidget.item(n,0).text()
             rule = self.tableWidget.cellWidget(n,1).currentText()
             content = self.tableWidget.item(n,2).text()
-            contten.replace("？","?")  #放置作业员输入中文字符
-            contten.replace("，",",")  #放置作业员输入中文字符
-            contten.replace("|","|")  #放置作业员输入中文字符
+            content.replace("？","?")  #放置作业员输入中文字符
+            content.replace("，",",")  #放置作业员输入中文字符
+            content.replace("|","|")  #放置作业员输入中文字符
             policy.append(rule + ":" +length +',' + content)
             # print("policy:",";".join(policy))
         try:
