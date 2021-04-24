@@ -110,7 +110,7 @@ class DateRule(RuleBase):
         self.day365=now.timetuple().tm_yday #一年的第几天
         tmp = txt
         #print(f"时间参数{self.args}")
-        args_cate = ("y","Y","mm","M","d","dd","ddd","WW")
+        args_cate = ("y","yy","yyyy","Y","mm","M","d","dd","ddd","WW")
         #判定参数是否超出限定范围
         if len(set(args_cate) | set(self.args) )> len(args_cate):
             raise RuleAnallysisError("时间参数的类别不对") 
@@ -132,6 +132,26 @@ class DateRule(RuleBase):
     def y(self,txt:str) ->(bool,str):
         if txt.isnumeric():
             result = int(txt) - self.year%10
+        else:
+            return FAIL,"年份参数错误"
+        # print(result)
+        if abs(result) > 1 and abs(10 - result)>1:
+            return PARTIY_SUCESS,"条码年份超过一年" 
+        return SUCESS,""
+
+    def yy(self,txt:str) ->(bool,str):
+        if txt.isnumeric():
+            result = int(txt) - self.year%100
+        else:
+            return FAIL,"年份参数错误"
+        # print(result)
+        if abs(result) > 1 and abs(10 - result)>1:
+            return PARTIY_SUCESS,"条码年份超过一年" 
+        return SUCESS,""
+
+    def yyyy(self,txt:str) ->(bool,str):
+        if txt.isnumeric():
+            result = int(txt) - self.year
         else:
             return FAIL,"年份参数错误"
         # print(result)

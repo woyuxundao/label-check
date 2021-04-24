@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 __author__ ='huliang'
 __email__ = "huliang168168@sina.com"
-__vesion__ ="v0.2a"
+__vesion__ ="v0.3"
 ''' '''
 from typing import List
 from PyQt5.QtWidgets import  QMainWindow, QMessageBox,QTableWidgetItem,QTableWidget,QSystemTrayIcon,QAction,QMenu,QWidget,QApplication ,QLabel
